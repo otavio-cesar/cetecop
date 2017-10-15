@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
+			columnClasses="rotulo, campo">
+
+			<p:outputLabel value="Nome" for="nome" />
+			<p:inputText id="nome" style="width: 29.5%; " value="" />
+
+			<p:outputLabel value="Enunciado" for="descricao" />
+			<p:inputTextarea id="descricao" style="width: 50%;" rows="10"
+				autoResize="false" />
+
+			<p:outputLabel for="idioma" value="Idioma" />
+			<p:selectOneMenu id="idioma" editable="true" style="width:28.5%; ">
+				<f:selectItem itemLabel="Selecione ou digite um idioma"
+					itemValue="vazio" />
+				<f:selectItems />
+			</p:selectOneMenu>
+
+			<h:outputLabel for="categoria" value="Categorias" />
+			<h:panelGroup>
+				<p:selectCheckboxMenu id="categoria" label="Selecione" filter="true"
+					filterMatchMode="startsWith" panelStyle="width:300px"
+					style="width:31%">
+					<f:selectItems />
+				</p:selectCheckboxMenu>
+				<span style="margin-left: 20px;"> <p:button
+						outcome="/problemas/CadastroProblema" value="Nova categoria"></p:button></span>
+			</h:panelGroup>
+
+		</p:panelGrid>
+
+	</h:form>
+</ui:composition>

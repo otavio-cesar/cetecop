@@ -1,0 +1,100 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam name="fixbug"></f:viewParam>
+			<f:event listener="#{cadastroUsuarioBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<div style="margin: 0 auto; width: 95%;">
+			<h1>Cadastro usuário</h1>
+
+			<h:form id="formCad">
+
+				<p:messages autoUpdate="true" closable="true" />
+
+				<p:toolbar style="padding:5px 5px 5px 5px; margin-top:15px">
+					<p:toolbarGroup>
+						<p:commandButton value="Finalizar cadastro"
+							action="#{cadastroUsuarioBean.salvar}" process="@form"
+							update="@form" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
+					columnClasses="rotulo, campo">
+
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" style="width: 29.5%; "
+						value="#{cadastroUsuarioBean.usuario.nome}" />
+
+					<p:outputLabel value="Email" for="email" />
+					<p:inputText id="email" style="width: 29.5%;"
+						value="#{cadastroUsuarioBean.usuario.email}" />
+
+					<h:outputLabel for="pwd1" value="Senha" />
+					<p:password id="pwd1" match="pwd2" label="Senha"
+						style="width: 29.5%;" value="#{cadastroUsuarioBean.usuario.senha}" />
+
+					<h:outputLabel for="pwd2" value="Confirmar senha" />
+					<p:password id="pwd2" label="Confirmar senha"  style="width: 29.5%;"
+						value="#{cadastroUsuarioBean.usuario.senha}" />
+
+					<p:outputLabel for="usuario" value="Tipo usuário" />
+					<p:selectOneRadio id="usuario"
+						value="#{cadastroUsuarioBean.usuario.tipo}">
+						<f:selectItem itemLabel="Aluno" itemValue="ALUNO" />
+						<f:selectItem itemLabel="Professor" itemValue="PROFESSOR" />
+					</p:selectOneRadio>
+
+					<h:outputLabel for="instituicao" value="Instituição" />
+					<h:panelGroup>
+						<p:selectOneMenu label="Instituição" id="instituicao"
+							style="width:28%;"
+							value="#{cadastroUsuarioBean.usuario.instituicao}" filter="true"
+							filterMatchMode="startsWith" panelStyle="width:60%">
+							<f:selectItem itemLabel="Selecione" />
+							<f:selectItems value="#{cadastroUsuarioBean.instituicoes}"
+								var="inst" itemLabel="#{inst.nome}" itemValue="#{inst}" />
+						</p:selectOneMenu>
+						<span style="margin-left: 10px;"> <p:commandButton
+								value="Nova instituição" type="button"
+								onclick="PF('dlg1').show();" style="bottom: 8.5px;" />
+						</span>
+					</h:panelGroup>
+
+				</p:panelGrid>
+
+				<p:dialog header="Nova instituição" widgetVar="dlg1" minHeight="40"
+					style="padding-bottom: 15px;" width="35%">
+					<br />
+					<p:outputLabel value="Nome" for="nome-inst" />
+					<p:inputText id="nome-inst"
+						style="width: 80%; margin-left: 10px;margin-bottom:20px"
+						value="#{cadastroUsuarioBean.instituicaoNova.nome}" />
+					<br />
+					<p:commandButton value="Cadastrar" oncomplete="PF('dlg1').hide();"
+						action="#{cadastroUsuarioBean.salvarInstituicao}"
+						process="@this nome-inst" update="nome-inst :formCad:instituicao">
+					</p:commandButton>
+					<p:button value="Cancelar"
+						onclick="PF('dlg1').hide(); return false;"
+						style="margin-left: 5px;" />
+				</p:dialog>
+
+			</h:form>
+
+		</div>
+		<br></br>
+	</ui:define>
+
+</ui:composition>

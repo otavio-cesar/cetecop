@@ -1,0 +1,26 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
+
+	<ui:define name="corpo">
+		<div style="margin: 0 auto; width: 95%;">
+			<h1>Visualizar problema </h1>
+			<p:tabView style="margin-top: 10px">
+				<p:tab title="Informações do Problema">
+					<ui:include src="/WEB-INF/template/problemas/InformacaoProblema.xhtml" />
+				</p:tab>
+				<p:tab title="Submeter Solução">
+					<ui:include src="/WEB-INF/template/problemas/SubmeterSolucao.xhtml" />
+				</p:tab>
+			</p:tabView>
+		</div>
+		<br></br>
+		<br></br>
+	</ui:define>
+
+</ui:composition>

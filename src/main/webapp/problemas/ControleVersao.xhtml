@@ -1,0 +1,52 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
+
+	<ui:define name="corpo">
+		<div style="margin: 0 auto; width: 95%;">
+			<h1>Controle de versão</h1>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup>
+					<p:commandButton value="Adicionar versão" />
+				</p:toolbarGroup>
+				<p:toolbarGroup  align="right">
+					<p:separator />
+					<p:button value="Pesquisar id" outcome="/problemas/PesquisaProblema" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<h:form>
+				<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
+					columnClasses="rotulo, campo">
+
+					<p:outputLabel value="Id" for="id" />
+					<p:inputText id="id" style="width: 19.5%; " value="" />
+					
+					<p:outputLabel value="Temática" for="tematica" />
+					<p:inputText id="tematica" style="width: 19.5%; " value="" />
+
+					<p:outputLabel value="Novo enunciado" for="descricao" />
+					<p:inputTextarea id="descricao" style="width: 50%;" rows="10"
+						autoResize="false" />
+
+					<p:outputLabel for="idioma" value="Idioma" />
+					<p:selectOneMenu id="idioma" editable="true" style="width:18.5%; ">
+						<f:selectItem itemLabel="Selecione ou digite um idioma"
+							itemValue="vazio" />
+						<f:selectItems />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+			</h:form>
+
+		</div>
+		<br></br>
+	</ui:define>
+</ui:composition>

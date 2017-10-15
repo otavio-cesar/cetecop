@@ -1,0 +1,59 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam name="fixbug"></f:viewParam>
+			<f:event listener="#{cadastroClienteBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<div style="margin: 0 auto; width: 95%;">
+			<h1>Histórico submissão</h1>
+			<h:form>
+				<p:dataTable var="car" value="#{cadastroClienteBean.clientes}" paginator="true" rows="15"
+					style="width: 100%; margin-top: 20px">
+					<f:facet name="header">  
+						 Expanda as linhas para ver informações detalhadas
+				    </f:facet>
+					<p:column style="width:16px">
+						<p:rowToggler />
+					</p:column>
+					<p:column headerText="Id">
+						<h:outputText value="#{car.id}" />
+					</p:column>
+					<p:column headerText="Problema">
+						<h:outputText value="#{car.nome}" />
+					</p:column>
+
+					<p:rowExpansion >
+						<p:panelGrid columns="2" columnClasses="label,value"
+							style="width:300px">
+							
+
+							<h:outputText value="Id:" />
+							<h:outputText value="#{car.id}" />
+
+							<h:outputText value="Year" />
+							<h:outputText value="#{car.nome}" />
+
+							
+						</p:panelGrid>
+					</p:rowExpansion>
+				</p:dataTable>
+
+			</h:form>
+
+		</div>
+		<br></br>
+		<br></br>
+	</ui:define>
+
+</ui:composition>

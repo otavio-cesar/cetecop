@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
+			columnClasses="rotulo, campo">
+
+			<p:outputLabel value="Nome" for="nome" />
+			<p:inputText id="nome" style="width: 29.5%; " value="" />
+
+			<p:spacer />
+			<p:accordionPanel activeIndex="-1" style="width: 30.5%">
+				<p:tab title="Idiomas">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+						<h:outputText value="The story begins as Don Vito Corleone..." />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+
+			<p:spacer />
+			<p:accordionPanel activeIndex="-1" style="width: 30.5%">
+				<p:tab title="Disciplinas">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+						<h:outputText value="The story begins as Don Vito Corleone..." />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+
+			<p:spacer />
+			<p:accordionPanel activeIndex="-1" style="width: 30.5%">
+				<p:tab title="Categorias">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+						<h:outputText value="The story begins as Don Vito Corleone..." />
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+
+			<p:outputLabel value="Enunciado" for="descricao" />
+			<p:inputTextarea id="descricao" style="width: 70%;" rows="20"
+				autoResize="false" scrollHeight="10" readonly="false"/>
+		</p:panelGrid>
+
+	</h:form>
+</ui:composition>

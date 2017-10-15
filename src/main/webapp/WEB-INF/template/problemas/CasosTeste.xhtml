@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<div style="float: left; width: 50%;">
+			<p:panelGrid columns="2" style="width: 50%; margin-top: 20px;"
+				columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Nome" for="nome-caso" />
+				<p:inputText id="nome-caso" style="width: 200%; " value="" />
+
+				<p:outputLabel value="Descrição" for="descricao-caso" />
+				<p:inputText id="descricao-caso" style="width: 200%; " value="" />
+
+				<p:outputLabel for="entrada" value="Entradas" />
+				<p:inputTextarea id="entrada" style="width:200%;" rows="5"
+					autoResize="true" />
+
+				<h:outputLabel for="saida" value="Saídas" />
+				<p:inputTextarea id="saida" style="width: 200%;" rows="5"
+					autoResize="true" />
+
+				<p:spacer />
+				<p:button value="Adicionar caso de teste" style="width: 108%;"></p:button>
+			</p:panelGrid>
+		</div>
+		<div style="float: left; width: 50%;margin-top: 15px">
+			<h3>Casos adicionados</h3>
+			Caso 1
+			<p:button title="Remover" icon="fa fa-fw fa-remove"
+				style="margin-left: 10px" />
+		</div>
+		<div style="clear: both;"></div>
+	</h:form>
+</ui:composition>
