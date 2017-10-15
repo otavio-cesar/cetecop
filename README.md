@@ -1,1 +1,1 @@
-Java Jsf with Primefaces Framework
+Java Jsf with Primefaces Framework using Maven
