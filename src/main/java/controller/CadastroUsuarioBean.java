@@ -64,7 +64,7 @@ public class CadastroUsuarioBean implements Serializable {
 			return;
 		}
 
-		if ((instituicaoNova = instituicaoReposiroty.guardar(instituicaoNova)) != null) {
+		if (instituicaoReposiroty.guardar(instituicaoNova)) {
 			FacesUtil.addWarnMessage("Instituição cadastrada.");
 			carregarInstituicoes();
 

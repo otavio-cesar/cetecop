@@ -28,4 +28,22 @@ public class UsuarioRepository implements Serializable {
 		}
 		
 	}
+
+	public Usuario buscarPorEmail(String email) {
+		Usuario usuario = null;
+		
+		EntityTransaction trx = this.manager.getTransaction();
+		trx.begin();
+
+		try {
+			usuario = this.manager.createQuery("from Usuario where lower(email) = :email",	Usuario.class)
+					.setParameter("email", email.toLowerCase()).getSingleResult();
+			trx.commit();
+		} catch (Exception e) {
+			// nenhum usuario encontrado
+		}
+
+		return usuario;
+		
+	}
 }

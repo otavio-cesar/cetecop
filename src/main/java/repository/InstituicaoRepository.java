@@ -24,18 +24,17 @@ public class InstituicaoRepository implements Serializable {
 		return manager.find(Instituicao.class, id);
 	}
 
-	public Instituicao guardar(Instituicao instituicao) {
-		Instituicao retornoInstituicao = null;
-		
+	public boolean guardar(Instituicao instituicao) {
 		EntityTransaction trx = this.manager.getTransaction();
 		trx.begin();
 
 		try {
-			retornoInstituicao = this.manager.merge(instituicao);
+			this.manager.merge(instituicao);
 			trx.commit();
-			return retornoInstituicao;
+			return true;
 		} catch (Exception e) {
-			return retornoInstituicao;
+			return false;
 		}
+		
 	}
 }
