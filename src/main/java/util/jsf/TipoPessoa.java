@@ -1,4 +1,4 @@
-package util;
+package util.jsf;
 
 public enum TipoPessoa {
 

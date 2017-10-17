@@ -1,6 +1,6 @@
 package model;
 
-import util.TipoPessoa;
+import util.jsf.TipoPessoa;
 
 import java.io.Serializable;
 

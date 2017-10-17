@@ -1,4 +1,4 @@
-package util;
+package util.jsf;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

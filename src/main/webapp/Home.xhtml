@@ -12,37 +12,42 @@
 			<div style="width: 100%; margin-top: 50px; padding-right: 20px;">
 				<div style="float: left; width: 50%;">
 					<h1>Buscar Problemas</h1>
+					<br></br> <span class="paragrafo"> Busque problemas por
+						áreas de conhecimento, categorias da comunidade e idiomas. </span> <br></br>
 					<br></br>
-					<span class="paragrafo"> Busque problemas por áreas de
-						conhecimento, categorias da comunidade e idiomas. </span> <br></br> <br></br>
-					<p:button outcome="/problemas/PesquisaProblema" value="Busca de Problemas" >
+					<p:button outcome="/problemas/PesquisaProblema"
+						value="Busca de Problemas">
 					</p:button>
 				</div>
 				<div style="float: right; width: 50%;">
-					<h1>Cadastro de Problemas</h1>
-					<br></br> <span class="paragrafo">Colabore com novos
-						problemas para a nossa base de dados.</span> <br></br> <br></br>
-					<p:button outcome="/problemas/CadastroProblema"
-						value="Cadastro de Problemas">
+					<h1>Histórico de Submissões</h1>
+					<br></br> <span class="paragrafo"> Confira sua lista de 
+						submissões e respectivos resultados.</span> <br></br> <br></br>
+					<p:button outcome="/problemas/HistoricoSubmissao"
+						value="Histórico de Submissões">
 					</p:button>
 				</div>
 			</div>
 			<div style="clear: both;"></div>
 			<div style="width: 100%; margin-top: 70px; padding-right: 20px;">
-				<div style="float: left; width: 50%;">
+				<div style="float: right; width: 50%;">
 					<h1>Controle de Versões</h1>
 					<br></br> <span class="paragrafo">Em controle de versões,
-						professores e colaboradores podem criar novas temáticas para
+						professores podem colaborar com a criação de novas temáticas para
 						problemas, deixando eles mais interessantes para os alunos.</span> <br></br>
 					<br></br>
-					<p:button outcome="/problemas/ControleVersao" value="Controle de Versões">
+					<p:button outcome="/problemas/ControleVersao"
+						value="Controle de Versões"
+						disabled="#{not seguranca.cadastroProblemaPermitido}">
 					</p:button>
 				</div>
-				<div style="float: right; width: 50%;">
-					<h1>Histórico de Submissões</h1>
-					<br></br> <span class="paragrafo"> Confira sua lista de suas
-						submissões e respectivos resultados.</span> <br></br> <br></br>
-					<p:button outcome="/problemas/HistoricoSubmissao" value="Histórico de Submissões">
+				<div style="float: left; width: 50%;">
+					<h1>Cadastro de Problemas</h1>
+					<br></br> <span class="paragrafo">Professores, colaborem com
+						novos problemas para a nossa base de dados.</span> <br></br> <br></br>
+					<p:button outcome="/problemas/CadastroProblema"
+						value="Cadastro de Problemas"
+						disabled="#{not seguranca.cadastroProblemaPermitido}">
 					</p:button>
 				</div>
 			</div>
