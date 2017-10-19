@@ -1,12 +1,11 @@
 package model;
 
-import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-public class ProblemHasCategoria implements Serializable{
+public class ProblemHasCategoria {
     
     @ManyToOne
     @JoinColumn(nullable = false)

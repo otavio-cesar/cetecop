@@ -15,9 +15,6 @@ public class Lingua {
 	@GeneratedValue
 	private Integer id;
 
-	@NotNull
-	@NotEmpty
-	@NotBlank
 	@Column(length = 100)
 	private String nome;
 

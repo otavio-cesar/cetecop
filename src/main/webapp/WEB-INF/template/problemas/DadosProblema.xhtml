@@ -4,61 +4,57 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form>
+	<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
+		columnClasses="rotulo, campo">
 
-		<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
-			columnClasses="rotulo, campo">
+		<p:outputLabel value="Nomeg" for="nome" />
+		<p:inputText id="nome" style="width: 29.5%; "
+			value="#{cadastroProblemaBean.versao.nome}" />
 
-			<p:outputLabel value="Nome" for="nome" />
-			<p:inputText id="nome" style="width: 29.5%; "
-				value="#{cadastroProblemaBean.versao.nome}" />
+		<p:outputLabel value="Enunciado" for="descricao" />
+		<p:inputTextarea id="descricao" style="width: 51%;" rows="10"
+			autoResize="false" value="#{cadastroProblemaBean.versao.enunciado}" />
 
-			<p:outputLabel value="Enunciado" for="descricao" />
-			<p:inputTextarea id="descricao" style="width: 51%;" rows="10"
-				autoResize="false" value="#{cadastroProblemaBean.versao.enunciado}" />
+		<p:outputLabel for="idioma" value="Idioma" />
+		<p:selectOneMenu id="idioma" style="width:28.5%;"
+			value="#{cadastroProblemaBean.lingua.nome}">
+			<f:selectItem itemLabel="Selecione" itemValue="" />
+			<f:selectItem itemLabel="Português" itemValue="portugues" />
+			<f:selectItem itemLabel="Inglês" itemValue="ingles" />
+			<f:selectItem itemLabel="Espanhol" itemValue="espanhol" />
+		</p:selectOneMenu>
 
-			<p:outputLabel for="idioma" value="Idioma" />
-			<p:selectOneMenu id="idioma" style="width:28.5%;"
-				value="#{cadastroProblemaBean.lingua.nome}">
-				<f:selectItem itemLabel="Selecione" itemValue="" />
-				<f:selectItem itemLabel="Português" itemValue="portugues" />
-				<f:selectItem itemLabel="Inglês" itemValue="ingles" />
-				<f:selectItem itemLabel="Espanhol" itemValue="espanhol" />
-			</p:selectOneMenu>
+		<h:outputLabel for="categoria" value="Categorias" />
+		<h:panelGroup>
+			<p:selectCheckboxMenu id="categoria" label="Selecione" filter="true"
+				filterMatchMode="startsWith" panelStyle="width:400px"
+				style="width:52%" multiple="true"
+				value="#{cadastroProblemaBean.selectedCategorias}">
+				<f:selectItems value="#{cadastroProblemaBean.categorias}" var="cat"
+					itemLabel="#{cat.nome}" itemValue="#{cat}" />
+			</p:selectCheckboxMenu>
+			<span style="margin-left: 10px;"> <p:commandButton
+					value="Nova categoria" type="button" onclick="PF('dlg1').show();"
+					style="bottom: 9.5px;" />
+			</span>
+		</h:panelGroup>
 
-			<h:outputLabel for="categoria" value="Categorias" />
-			<h:panelGroup>
-				<p:selectCheckboxMenu id="categoria" label="Selecione" filter="true"
-					filterMatchMode="startsWith" panelStyle="width:400px"
-					style="width:52%" multiple="true"
-					value="#{cadastroProblemaBean.selectedCategorias}">
-					<f:selectItems value="#{cadastroProblemaBean.categorias}"
-						var="cat" itemLabel="#{cat.nome}" itemValue="#{cat}" />
-				</p:selectCheckboxMenu>
-				<span style="margin-left: 10px;"> <p:commandButton
-						value="Nova categoria" type="button" onclick="PF('dlg1').show();"
-						style="bottom: 9.5px;" />
-				</span>
-			</h:panelGroup>
+	</p:panelGrid>
 
-		</p:panelGrid>
-
-		<p:dialog header="Nova categoria" widgetVar="dlg1" minHeight="40"
-			style="padding-bottom: 15px;" width="35%">
-			<br />
-			<p:outputLabel value="Nome" for="nome-cat" />
-			<p:inputText id="nome-cat"
-				style="width: 80%; margin-left: 10px;margin-bottom:20px"
-				value="#{cadastroProblemaBean.categoriaNova.nome}" />
-			<br />
-			<p:commandButton value="Cadastrar" oncomplete="PF('dlg1').hide();"
-				action="#{cadastroProblemaBean.salvarCategoria}"
-				process="@this nome-cat" update="nome-cat categoria">
-			</p:commandButton>
-			<p:button value="Cancelar" onclick="PF('dlg1').hide(); return false;"
-				style="margin-left: 5px;" />
-		</p:dialog>
-
-	</h:form>
+	<p:dialog header="Nova categoria" widgetVar="dlg1" minHeight="40"
+		style="padding-bottom: 15px;" width="35%">
+		<br />
+		<p:outputLabel value="Nomegh" for="nome-cat" />
+		<p:inputText id="nome-cat"
+			style="width: 80%; margin-left: 10px;margin-bottom:20px"
+			value="#{cadastroProblemaBean.categoriaNova.nome}" />
+		<br />
+		<p:commandButton value="Cadastrar" oncomplete="PF('dlg1').hide();"
+			action="#{cadastroProblemaBean.salvarCategoria}"
+			process="@this nome-cat" update="nome-cat categoria">
+		</p:commandButton>
+		<p:button value="Cancelar" onclick="PF('dlg1').hide(); return false;"
+			style="margin-left: 5px;" />
+	</p:dialog>
 
 </ui:composition>

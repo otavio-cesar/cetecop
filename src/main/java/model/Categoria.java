@@ -23,9 +23,6 @@ public class Categoria {
 	@JoinColumn(nullable = false)
 	private Usuario user;
 	
-	@NotNull
-	@NotBlank
-	@NotEmpty
 	@Column(length = 240)
 	private String nome;
 

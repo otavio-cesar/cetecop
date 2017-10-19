@@ -12,6 +12,7 @@ import model.Problema;
 import model.Versao;
 import repository.CategoriaRepository;
 import repository.ProblemaRepository;
+import repository.VersaoRepository;
 import security.Seguranca;
 import util.jsf.FacesUtil;
 
@@ -23,6 +24,9 @@ public class CadastroProblemaBean implements Serializable {
 
 	@Inject
 	private ProblemaRepository problemaRepository;
+	
+	@Inject
+	private VersaoRepository versaoRepository;
 
 	@Inject
 	private CategoriaRepository categoriaRepository;
@@ -54,11 +58,16 @@ public class CadastroProblemaBean implements Serializable {
 	}
 
 	public void salvar() {
-		System.out.println("salvando problema");
-		System.out.println(problema.toString());
+		problema.setOwner(Seguranca.getUsuarioLogado().getUsuario());
+		problema.setCategoria(selectedCategorias);
+		versao.setLingua(lingua);
+		versao.setProblema(problema);
+		
+		System.out.println("salvando problema versao");
+		System.out.println(versao.toString());
 
-		if (problemaRepository.guardar(problema)) {
-			FacesUtil.addInfoMessage("Problema cadastrado com sucesso.");
+		if (versaoRepository.guardar(versao)) {
+			FacesUtil.addInfoMessage("Problema cadastrado com sucesso. Você pode editá-lo no modo de Edição de Problema.");
 			this.problema = new Problema();
 		} else {
 			FacesUtil
@@ -68,7 +77,7 @@ public class CadastroProblemaBean implements Serializable {
 
 	public void salvarCategoria() {
 		categoriaNova.setUser(Seguranca.getUsuarioLogado().getUsuario());
-		
+
 		System.out.println("salvando categoria");
 		System.out.println(categoriaNova.toString());
 

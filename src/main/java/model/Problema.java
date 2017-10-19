@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,7 +30,7 @@ public class Problema {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "Problema_has_Categoria")
-	private List<Taxonomia> categoria;
+	private List<Categoria> categoria;
 
 	public Integer getId() {
 		return id;
@@ -53,16 +52,22 @@ public class Problema {
 		return taxonomia;
 	}
 
-	public void setTaxonomia(ArrayList<Taxonomia> taxonomia) {
+	public void setTaxonomia(List<Taxonomia> taxonomia) {
 		this.taxonomia = taxonomia;
 	}
 
-	public List<Taxonomia> getCategoria() {
+	public List<Categoria> getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(List<Taxonomia> categoria) {
+	public void setCategoria(List<Categoria> categoria) {
 		this.categoria = categoria;
+	}
+
+	@Override
+	public String toString() {
+		return "Problema [id=" + id + ", owner=" + owner + ", taxonomia="
+				+ taxonomia + ", categoria=" + categoria + "]";
 	}
 
 }

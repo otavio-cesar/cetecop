@@ -23,12 +23,12 @@ public class Versao {
 	private Lingua lingua;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(nullable = false)
 	private Problema problema;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(nullable = false)
 	private Usuario user;
 
@@ -36,7 +36,6 @@ public class Versao {
 	@Column(length = 1000)
 	private String enunciado;
 
-	@NotNull
 	@Column(length = 240)
 	private String tematica;
 
@@ -98,6 +97,13 @@ public class Versao {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return "Versao [id=" + id + ", lingua=" + lingua + ", problema="
+				+ problema + ", user=" + user + ", enunciado=" + enunciado
+				+ ", tematica=" + tematica + ", nome=" + nome + "]";
 	}
 
 }
