@@ -1,34 +1,40 @@
 package model;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Lingua implements Serializable {
+public class Lingua {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
-    @Column(length = 100)
-    private String nome;
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	@NotNull
+	@NotEmpty
+	@NotBlank
+	@Column(length = 100)
+	private String nome;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 }

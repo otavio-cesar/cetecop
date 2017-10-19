@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,53 +7,60 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Taxonomia implements Serializable{
-    
-    @Id
-    @GeneratedValue
-    private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
-    private Usuario user;
-    @Column(length = 240)
-    private String nome;
-    @Column(length = 1000)
-    private String descricao;
+public class Taxonomia {
 
-    public Integer getId() {
-        return id;
-    }
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(nullable = false)
+	private Usuario user;
 
-    public Usuario getUser() {
-        return user;
-    }
+	@NotNull
+	@NotBlank
+	@NotEmpty
+	@Column(length = 240)
+	private String nome;
 
-    public void setUser(Usuario user) {
-        this.user = user;
-    }
+	@Column(length = 1000)
+	private String descricao;
 
-    public String getNome() {
-        return nome;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public Usuario getUser() {
+		return user;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-    
-    
-    
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 }

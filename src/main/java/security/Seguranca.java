@@ -27,7 +27,7 @@ public class Seguranca {
 		return nome;
 	}
 
-	private UsuarioSistema getUsuarioLogado() {
+	public static UsuarioSistema getUsuarioLogado() {
 		UsuarioSistema usuario = null;
 
 		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) 

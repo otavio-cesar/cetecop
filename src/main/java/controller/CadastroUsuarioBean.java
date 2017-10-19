@@ -2,12 +2,10 @@ package controller;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import model.Instituicao;
 import model.Usuario;
 import repository.InstituicaoRepository;
@@ -21,15 +19,14 @@ public class CadastroUsuarioBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UsuarioRepository usuarioReposiroty;
+	private UsuarioRepository usuarioRepository;
 
 	@Inject
-	private InstituicaoRepository instituicaoReposiroty;
+	private InstituicaoRepository instituicaoRepository;
 
 	private Usuario usuario;
 	private Instituicao instituicao;
 	private Instituicao instituicaoNova;
-
 	private List<Instituicao> instituicoes;
 
 	public CadastroUsuarioBean() {
@@ -50,7 +47,7 @@ public class CadastroUsuarioBean implements Serializable {
 		System.out.println("salvando usuario");
 		System.out.println(usuario.toString());
 
-		if (usuarioReposiroty.guardar(usuario)) {
+		if (usuarioRepository.guardar(usuario)) {
 			FacesUtil.addInfoMessage("Usuário cadastrado, faça login.");
 			this.usuario = new Usuario();
 		} else {
@@ -66,7 +63,7 @@ public class CadastroUsuarioBean implements Serializable {
 			return;
 		}
 
-		if (instituicaoReposiroty.guardar(instituicaoNova)) {
+		if (instituicaoRepository.guardar(instituicaoNova)) {
 			FacesUtil.addWarnMessage("Instituição cadastrada.");
 			carregarInstituicoes();
 
@@ -77,7 +74,7 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 
 	public void carregarInstituicoes() {
-		this.instituicoes = instituicaoReposiroty.buscarInstituicao();
+		this.instituicoes = instituicaoRepository.buscarInstituicao();
 	}
 
 	public Usuario getUsuario() {

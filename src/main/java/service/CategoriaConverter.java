@@ -4,41 +4,41 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import model.Instituicao;
-import repository.InstituicaoRepository;
+import model.Categoria;
+import repository.CategoriaRepository;
 import util.cdi.CDIServiceLocator;
 
-@FacesConverter(forClass = Instituicao.class)
-public class InstituicaoConverter implements Converter {
+@FacesConverter(forClass = Categoria.class)
+public class CategoriaConverter implements Converter {
 
-	private InstituicaoRepository repositorioInstituicao;
+	private CategoriaRepository repositorioCategoria;
 
-	public InstituicaoConverter() {
-		repositorioInstituicao = CDIServiceLocator.getBean(InstituicaoRepository.class);
+	public CategoriaConverter() {
+		repositorioCategoria = CDIServiceLocator.getBean(CategoriaRepository.class);
 	}
 
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String value) {
-		Instituicao retorno = null;
+		Categoria retorno = null;
 
 		if (value != null) {
 			Integer id = new Integer(value);
-			retorno = repositorioInstituicao.buscarPorId(id);
+			retorno = repositorioCategoria.buscarPorId(id);
 		}
-
+		
 		return retorno;
 	}
 
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object value) {
 		if (value != null) {
-			if (((Instituicao) value).getId() == null) {
+			if (((Categoria) value).getId() == null) {
 				return "";
 			}
-
-			return ((Instituicao) value).getId().toString();
+			
+			return ((Categoria) value).getId().toString();
 		}
-
+		
 		return "";
 	}
 
