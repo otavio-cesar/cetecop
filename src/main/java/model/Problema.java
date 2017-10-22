@@ -1,14 +1,10 @@
 package model;
 
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -16,21 +12,13 @@ import javax.validation.constraints.NotNull;
 public class Problema {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Integer id;
 
 	@NotNull
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(nullable = false)
 	private Usuario owner;
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "Problema_has_Taxonomia")
-	private List<Taxonomia> taxonomia;
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "Problema_has_Categoria")
-	private List<Categoria> categoria;
 
 	public Integer getId() {
 		return id;
@@ -48,26 +36,29 @@ public class Problema {
 		this.owner = owner;
 	}
 
-	public List<Taxonomia> getTaxonomia() {
-		return taxonomia;
-	}
-
-	public void setTaxonomia(List<Taxonomia> taxonomia) {
-		this.taxonomia = taxonomia;
-	}
-
-	public List<Categoria> getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(List<Categoria> categoria) {
-		this.categoria = categoria;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
-	public String toString() {
-		return "Problema [id=" + id + ", owner=" + owner + ", taxonomia="
-				+ taxonomia + ", categoria=" + categoria + "]";
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Problema other = (Problema) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

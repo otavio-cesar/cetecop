@@ -18,10 +18,11 @@ public class VersaoRepository implements Serializable {
 		trx.begin();
 
 		try {
-			this.manager.persist(versao);
+			this.manager.merge(versao);
 			trx.commit();
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}

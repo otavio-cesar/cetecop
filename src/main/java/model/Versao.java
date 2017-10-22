@@ -23,7 +23,7 @@ public class Versao {
 	private Lingua lingua;
 
 	@NotNull
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(nullable = false)
 	private Problema problema;
 

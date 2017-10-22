@@ -24,7 +24,9 @@
 
 				<p:toolbar style="padding:5px 5px 5px 5px; margin-top:15px">
 					<p:toolbarGroup>
-						<p:commandButton value="Salvar" />
+						<p:commandButton value="Salvar"
+							action="#{cadastroProblemaBean.salvar}" process="@form" 
+							update="@form" ajax="false" />
 					</p:toolbarGroup>
 				</p:toolbar>
 

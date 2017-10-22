@@ -41,7 +41,7 @@
 		<intercept-url pattern="/**" access="denyAll" />
 
 		<form-login login-page="/Login.xhtml" authentication-failure-url="/Login.xhtml?invalid=true"
-			default-target-url="/Home.xhtml" always-use-default-target="false" />
+			default-target-url="/Home.xhtml" always-use-default-target="true" />
 		<logout logout-url="/j_spring_security_logout" invalidate-session="true" />
 	</http>
 

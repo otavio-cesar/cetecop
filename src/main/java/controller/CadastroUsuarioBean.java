@@ -44,9 +44,6 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 
 	public void salvar() {
-		System.out.println("salvando usuario");
-		System.out.println(usuario.toString());
-
 		if (usuarioRepository.guardar(usuario)) {
 			FacesUtil.addInfoMessage("Usuário cadastrado, faça login.");
 			this.usuario = new Usuario();
@@ -56,9 +53,6 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 
 	public void salvarInstituicao() {
-		System.out.println("salvando instituicao");
-		System.out.println(instituicaoNova.toString());
-		
 		if (instituicaoNova.getNome().trim().equals("")) {
 			return;
 		}

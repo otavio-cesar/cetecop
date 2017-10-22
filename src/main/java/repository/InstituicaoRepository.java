@@ -2,11 +2,9 @@ package repository;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-
 import model.Instituicao;
 
 public class InstituicaoRepository implements Serializable {
@@ -35,6 +33,6 @@ public class InstituicaoRepository implements Serializable {
 		} catch (Exception e) {
 			return false;
 		}
-		
 	}
+	
 }

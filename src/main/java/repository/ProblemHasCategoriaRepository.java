@@ -4,27 +4,27 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Problema;
+import model.ProblemaHasCategoria;
 
-public class ProblemaRepository implements Serializable {
+public class ProblemHasCategoriaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager manager;
 
-	public Problema guardar(Problema problema) {
+	public boolean guardar(ProblemaHasCategoria problemaCategoria) {
 		EntityTransaction trx = this.manager.getTransaction();
 		trx.begin();
 
 		try {
-			problema = this.manager.merge(problema);
+			this.manager.merge(problemaCategoria);
 			trx.commit();
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
-
-		return problema;
 	}
+	
 }

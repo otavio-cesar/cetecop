@@ -9,8 +9,10 @@ import javax.inject.Named;
 import model.Categoria;
 import model.Lingua;
 import model.Problema;
+import model.ProblemaHasCategoria;
 import model.Versao;
 import repository.CategoriaRepository;
+import repository.ProblemHasCategoriaRepository;
 import repository.ProblemaRepository;
 import repository.VersaoRepository;
 import security.Seguranca;
@@ -23,13 +25,16 @@ public class CadastroProblemaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private ProblemaRepository problemaRepository;
-	
-	@Inject
 	private VersaoRepository versaoRepository;
 
 	@Inject
 	private CategoriaRepository categoriaRepository;
+
+	@Inject
+	private ProblemHasCategoriaRepository problemaCategoriaRepository;
+
+	@Inject
+	private ProblemaRepository problemaRepository;
 
 	private Problema problema;
 	private Versao versao;
@@ -58,28 +63,44 @@ public class CadastroProblemaBean implements Serializable {
 	}
 
 	public void salvar() {
-		problema.setOwner(Seguranca.getUsuarioLogado().getUsuario());
-		problema.setCategoria(selectedCategorias);
 		versao.setLingua(lingua);
+		versao.setUser(Seguranca.getUsuarioLogado().getUsuario());
+
+		problema.setOwner(Seguranca.getUsuarioLogado().getUsuario());
+		problema = problemaRepository.guardar(problema);
+
+		if (problema == null) {
+			FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar o problema.");
+			return;
+		}
+
 		versao.setProblema(problema);
-		
-		System.out.println("salvando problema versao");
-		System.out.println(versao.toString());
 
 		if (versaoRepository.guardar(versao)) {
-			FacesUtil.addInfoMessage("Problema cadastrado com sucesso. Você pode editá-lo no modo de Edição de Problema.");
-			this.problema = new Problema();
+			for (int i = 0; i < selectedCategorias.size(); i++) {
+				ProblemaHasCategoria problemaCategoria = new ProblemaHasCategoria();
+				problemaCategoria.setProblema(problema);
+				
+				Categoria categoria = categoriaRepository.buscarPorId(Integer.parseInt(selectedCategorias.get(i) + ""));
+				problemaCategoria.setCategoria(categoria);
+				problemaCategoria.setUser(problema.getOwner());
+				
+				if (!problemaCategoriaRepository.guardar(problemaCategoria)) {
+					FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar a categoria do problema.");
+					return;
+				}
+			}
 		} else {
-			FacesUtil
-					.addErrorMessage("Ocorreu um erro ao cadastar o problema.");
+			FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar a versao.");
+			return;
 		}
+
+		FacesUtil.addInfoMessage("Problema cadastrado com sucesso.");
+
 	}
 
 	public void salvarCategoria() {
 		categoriaNova.setUser(Seguranca.getUsuarioLogado().getUsuario());
-
-		System.out.println("salvando categoria");
-		System.out.println(categoriaNova.toString());
 
 		if (categoriaNova.getNome().trim().equals("")) {
 			return;
