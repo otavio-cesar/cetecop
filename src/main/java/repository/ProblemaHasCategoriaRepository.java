@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import model.ProblemaHasCategoria;
 
-public class ProblemHasCategoriaRepository implements Serializable {
+public class ProblemaHasCategoriaRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -74,6 +74,8 @@ public class Categoria {
 		return true;
 	}
 
+	// Nao alterar este metodo, necessario para o selectedCategorias do
+	// CadastroProblemaBean funcionar
 	@Override
 	public String toString() {
 		return id == null ? "" : id.toString();

@@ -12,7 +12,7 @@ import model.Problema;
 import model.ProblemaHasCategoria;
 import model.Versao;
 import repository.CategoriaRepository;
-import repository.ProblemHasCategoriaRepository;
+import repository.ProblemaHasCategoriaRepository;
 import repository.ProblemaRepository;
 import repository.VersaoRepository;
 import security.Seguranca;
@@ -31,7 +31,7 @@ public class CadastroProblemaBean implements Serializable {
 	private CategoriaRepository categoriaRepository;
 
 	@Inject
-	private ProblemHasCategoriaRepository problemaCategoriaRepository;
+	private ProblemaHasCategoriaRepository problemaCategoriaRepository;
 
 	@Inject
 	private ProblemaRepository problemaRepository;
