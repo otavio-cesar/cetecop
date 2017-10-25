@@ -1,87 +1,100 @@
 package model;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class CasoDeTeste implements Serializable {
+@Table(name = "caso_de_teste")
+public class CasoDeTeste {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
-    private Problema problema;
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] entrada;
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] saida;
-    @Column(length = 255)
-    private String descricao;
-    @Embedded
-    private Limites limites;
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    public Limites getLimites() {
-        return limites;
-    }
+	@NotNull
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Problema problema;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Usuario creator;
+	
+	@NotBlank
+	private String entrada;
 
-    public void setLimites(Limites limites) {
-        this.limites = limites;
-    }
+	@NotBlank
+	private String saida;
 
-    public Integer getId() {
-        return id;
-    }
+	@Column(length = 255)
+	private String descricao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@NotBlank
+	@Column(length = 100)
+	private String nome;
 
-    public Problema getProblema() {
-        return problema;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setProblema(Problema problema) {
-        this.problema = problema;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public byte[] getEntrada() {
-        return entrada;
-    }
+	public Problema getProblema() {
+		return problema;
+	}
 
-    public void setEntrada(byte[] entrada) {
-        this.entrada = entrada;
-    }
+	public void setProblema(Problema problema) {
+		this.problema = problema;
+	}
 
-    public byte[] getSaida() {
-        return saida;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setSaida(byte[] saida) {
-        this.saida = saida;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getEntrada() {
+		return entrada;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setEntrada(String entrada) {
+		this.entrada = entrada;
+	}
+
+	public String getSaida() {
+		return saida;
+	}
+
+	public void setSaida(String saida) {
+		this.saida = saida;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Usuario getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Usuario creator) {
+		this.creator = creator;
+	}
 
 }

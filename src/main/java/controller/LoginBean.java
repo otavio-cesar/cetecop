@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import util.jsf.FacesUtil;
 
 @Named
@@ -30,7 +30,8 @@ public class LoginBean implements Serializable {
 	
 	private String email;
 
-	public void preRender() {
+	// Parametro nao e necessario, mas se remover, IDE acusa erro em Login.xhtml
+	public void preRender(ComponentSystemEvent event) {
 		if ("true".equals(request.getParameter("invalid"))) {
 			FacesUtil.addErrorMessage("Usuário ou senha inválido!");
 		}

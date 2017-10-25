@@ -9,18 +9,19 @@
 
 		<p:outputLabel value="Nome" for="nome" />
 		<p:inputText id="nome" style="width: 29.5%; "
-			value="#{cadastroProblemaBean.versao.nome}" />
+			value="#{cadastroProblemaBean.versao.nome}" required="true"
+			requiredMessage="Nome do problema deve ser informado" />
 
-		<p:outputLabel value="Enunciado" for="descricao" />
-		<p:inputTextarea id="descricao" style="width: 51%;" rows="10"
-			autoResize="false" value="#{cadastroProblemaBean.versao.enunciado}" />
+		<p:outputLabel value="Enunciado" for="enunciado" />
+		<p:inputTextarea id="enunciado" style="width: 51%;" rows="10"
+			autoResize="false" value="#{cadastroProblemaBean.versao.enunciado}"
+			required="true" requiredMessage="Enunciado deve ser informado" />
 
 		<p:outputLabel for="idioma" value="Idioma" />
 		<p:selectOneMenu id="idioma" style="width:28.5%;"
-			value="#{cadastroProblemaBean.lingua.nome}">
-			<f:selectItem itemLabel="Português" itemValue="portugues" />
-			<f:selectItem itemLabel="Inglês" itemValue="ingles" />
-			<f:selectItem itemLabel="Espanhol" itemValue="espanhol" />
+			value="#{cadastroProblemaBean.lingua}">
+			<f:selectItems value="#{cadastroProblemaBean.linguas}" var="a"
+				itemLabel="#{a.nome}" itemValue="#{a}" />
 		</p:selectOneMenu>
 
 		<h:outputLabel for="categoria" value="Categorias" />

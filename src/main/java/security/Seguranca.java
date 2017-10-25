@@ -11,10 +11,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Named
 @RequestScoped
 public class Seguranca {
-	
+
 	@Inject
 	private ExternalContext externalContext;
-	
+
 	public String getNomeUsuario() {
 		String nome = null;
 
@@ -30,8 +30,8 @@ public class Seguranca {
 	public static UsuarioSistema getUsuarioLogado() {
 		UsuarioSistema usuario = null;
 
-		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) 
-				FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+		UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) FacesContext
+				.getCurrentInstance().getExternalContext().getUserPrincipal();
 
 		if (auth != null && auth.getPrincipal() != null) {
 			usuario = (UsuarioSistema) auth.getPrincipal();
@@ -39,13 +39,17 @@ public class Seguranca {
 
 		return usuario;
 	}
-	
+
 	public boolean isCadastroProblemaPermitido() {
 		return externalContext.isUserInRole("PROFESSOR");
 	}
-	
+
 	public boolean isControleVersaoPermitido() {
 		return externalContext.isUserInRole("PROFESSOR");
 	}
-	
+
+	public boolean isUsuarioLogado() {
+		return getUsuarioLogado() == null ? false : true;
+	}
+
 }

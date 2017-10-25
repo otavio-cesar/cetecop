@@ -8,7 +8,7 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><ui:insert name="titulo">Sistema de Pedidos de Venda</ui:insert></title>
+	<title><ui:insert name="titulo">Cetecop</ui:insert></title>
 	<h:outputStylesheet library="css" name="sistema.css" />
 	<h:outputScript library="js" name="jquery.maskMoney.js" />
 </h:head>
@@ -16,7 +16,7 @@
 <h:body>
 
 
-	
+
 	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
 		<f:facet name="start">
 			<h:graphicImage library="images" name="loading.gif" />
@@ -36,22 +36,23 @@
 	<div style="float: right; margin-right: 110px">
 		<span
 			style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
-			Olá #{seguranca.nomeUsuario}! </span>
+			<p:outputLabel rendered="#{seguranca.usuarioLogado}"> 
+			Olá #{seguranca.nomeUsuario}!
+			</p:outputLabel>
+		</span>
 
 		<h:form style="display: inline-block">
 			<p:menubar styleClass="menu-sistema">
-				<p:submenu label="Cadastros">
-					<p:menuitem value="Clientes" />
-					<p:menuitem value="Usuários" />
+				<p:submenu label="Problemas">
+					<p:menuitem value="Buscar" />
+					<p:menuitem value="Cadastrar" />
 					<p:separator />
 					<p:menuitem value="Categorias" />
 					<p:menuitem value="Produtos" outcome="/Home" />
 				</p:submenu>
-				<p:submenu label="Pedidos">
-					<p:menuitem value="Novo pedido" outcome="/Home" />
-					<p:menuitem value="Pesquisa" outcome="/Home" />
-				</p:submenu>
-				<p:menuitem value="Sair"  url="/j_spring_security_logout"/>
+				<p:menuitem value="Sair" url="/j_spring_security_logout" rendered="#{seguranca.usuarioLogado}"/>
+				<p:menuitem value="Login" url="/Login" rendered="#{not seguranca.usuarioLogado}"/>
+				<p:menuitem value="Cadastrar" url="/CadastroUsuario.xhtml" rendered="#{not seguranca.usuarioLogado}"/>
 			</p:menubar>
 		</h:form>
 	</div>

@@ -102,5 +102,5 @@ public class CadastroUsuarioBean implements Serializable {
 	public void setInstituicaoNova(Instituicao instituicaoNova) {
 		this.instituicaoNova = instituicaoNova;
 	}
-
+	
 }

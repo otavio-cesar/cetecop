@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
+	<ui:define name="titulo">Cadastrar Problema - Cetecop</ui:define>
 
 	<ui:define name="corpo">
 
@@ -18,19 +18,20 @@
 		<div style="margin: 0 auto; width: 95%;">
 			<h1>Novo problema</h1>
 
-			<h:form id="formCad">
+			<h:form id="formCad" prependId="false">
 
 				<p:messages autoUpdate="true" closable="true" />
 
 				<p:toolbar style="padding:5px 5px 5px 5px; margin-top:15px">
 					<p:toolbarGroup>
 						<p:commandButton value="Salvar"
-							action="#{cadastroProblemaBean.salvar}" process="@form" 
-							update="@form" ajax="false" />
+							action="#{cadastroProblemaBean.salvar}"
+							process="@this nome enunciado categoria idioma"
+							update="nome enunciado categoria idioma" ajax="true" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
-				<p:tabView style="margin-top: 10px">
+				<p:tabView style="margin-top: 10px" id="tabView" prependId="false">
 					<p:tab title="Dados do Problema">
 						<ui:include src="/WEB-INF/template/problemas/DadosProblema.xhtml" />
 					</p:tab>

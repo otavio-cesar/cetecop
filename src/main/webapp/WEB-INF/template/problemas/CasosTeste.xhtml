@@ -9,24 +9,31 @@
 			columnClasses="rotulo, campo">
 
 			<p:outputLabel value="Nome" for="nome-caso" />
-			<p:inputText id="nome-caso" style="width: 200%; " />
+			<p:inputText id="nome-caso" style="width: 200%;"
+				value="#{cadastroProblemaBean.casoDeTesteNovo.nome}" />
 
 			<p:outputLabel value="Descrição" for="descricao-caso" />
-			<p:inputText id="descricao-caso" style="width: 200%; "  />
+			<p:inputText id="descricao-caso" style="width: 200%;"
+				value="#{cadastroProblemaBean.casoDeTesteNovo.descricao}" />
 
 			<p:outputLabel for="entrada" value="Entradas" />
 			<p:inputTextarea id="entrada" style="width:200%;" rows="5"
-				autoResize="true" />
+				autoResize="true"
+				value="#{cadastroProblemaBean.casoDeTesteNovo.entrada}" />
 
-			<h:outputLabel for="saida" value="Saídas" />
+			<p:outputLabel for="saida" value="Saídas" />
 			<p:inputTextarea id="saida" style="width: 200%;" rows="5"
-				autoResize="true" />
+				autoResize="true"
+				value="#{cadastroProblemaBean.casoDeTesteNovo.saida}" />
 
 			<p:spacer />
-			<p:button value="Adicionar caso de teste" style="width: 108%;"></p:button>
+			<p:commandButton value="Adicionar caso de teste" style="width: 108%;"
+				action="#{cadastroProblemaBean.salvarCasoDeTeste}"
+				process="@this nome-caso" update="nome-caso" />
+
 		</p:panelGrid>
 	</div>
-	
+
 	<div style="float: left; width: 50%; margin-top: 15px">
 		<h3>Casos adicionados</h3>
 		Caso 1
@@ -34,5 +41,5 @@
 			style="margin-left: 10px" />
 	</div>
 	<div style="clear: both;"></div>
-	
+
 </ui:composition>

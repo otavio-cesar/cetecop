@@ -74,8 +74,8 @@ public class Categoria {
 		return true;
 	}
 
-	// Nao alterar este metodo, necessario para o selectedCategorias do
-	// CadastroProblemaBean funcionar
+	// Nao alterar este metodo. Necessario para o selectedCategorias usado no
+	// metodo salvar do CadastroProblemaBean funcionar.
 	@Override
 	public String toString() {
 		return id == null ? "" : id.toString();
