@@ -18,9 +18,8 @@ public class CasoDeTeste {
 	@GeneratedValue
 	private Integer id;
 
-	@NotNull
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = true)
 	private Problema problema;
 	
 	@NotNull
@@ -40,6 +39,8 @@ public class CasoDeTeste {
 	@NotBlank
 	@Column(length = 100)
 	private String nome;
+	
+	private boolean isPadrao;
 
 	public Integer getId() {
 		return id;
@@ -95,6 +96,14 @@ public class CasoDeTeste {
 
 	public void setCreator(Usuario creator) {
 		this.creator = creator;
+	}
+
+	public boolean isPadrao() {
+		return isPadrao;
+	}
+
+	public void setPadrao(boolean isPadrao) {
+		this.isPadrao = isPadrao;
 	}
 
 }

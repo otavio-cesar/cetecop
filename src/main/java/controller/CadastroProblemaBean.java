@@ -49,8 +49,9 @@ public class CadastroProblemaBean implements Serializable {
 	private List<Categoria> selectedCategorias;
 	private List<Categoria> categorias;
 	private List<Lingua> linguas;
-	private List<CasoDeTeste> casoDeTestes;
+	private List<CasoDeTeste> casosDeTeste;
 	private CasoDeTeste casoDeTesteNovo;
+	private CasoDeTeste selectedCasoDeTeste;
 
 	public CadastroProblemaBean() {
 		this.problema = new Problema();
@@ -63,7 +64,12 @@ public class CadastroProblemaBean implements Serializable {
 		if (FacesUtil.isNotPostback()) {
 			carregarCategorias();
 			carregarLinguas();
+			carregarCasosDeTeste();
 		}
+	}
+
+	private void carregarCasosDeTeste() {
+		this.casosDeTeste = casoDeTesteRepository.buscarCasoDeTeste();
 	}
 
 	private void carregarLinguas() {
@@ -138,17 +144,18 @@ public class CadastroProblemaBean implements Serializable {
 	}
 
 	public void salvarCasoDeTeste() {
-		System.out.println("adad");
 		casoDeTesteNovo.setCreator(Seguranca.getUsuarioLogado().getUsuario());
+		casoDeTesteNovo.setPadrao(true);
+		
+		if (casoDeTesteRepository.guardar(casoDeTesteNovo)) {
+			FacesUtil.addWarnMessage("Caso de teste cadastrado com sucesso.");
+			carregarCasosDeTeste();
 
-		// if (casoDeTesteRepository.guardar(casoDeTesteNovo)) {
-		// FacesUtil.addWarnMessage("Caso de Teste cadastrado.");
-		// carregarCategorias();
-
-		// this.casoDeTesteNovo = new CasoDeTeste();
-		// } else {
-		// //FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar o caso de teste.");
-		// }
+			this.casoDeTesteNovo = new CasoDeTeste();
+		} else {
+			FacesUtil
+					.addErrorMessage("Ocorreu um erro ao cadastar o caso de teste.");
+		}
 	}
 
 	public Problema getProblema() {
@@ -199,12 +206,12 @@ public class CadastroProblemaBean implements Serializable {
 		return linguas;
 	}
 
-	public List<CasoDeTeste> getCasoDeTestes() {
-		return casoDeTestes;
+	public List<CasoDeTeste> getCasosDeTeste() {
+		return casosDeTeste;
 	}
 
-	public void setCasoDeTestes(List<CasoDeTeste> casoDeTestes) {
-		this.casoDeTestes = casoDeTestes;
+	public void setCasosDeTeste(List<CasoDeTeste> casosDeTeste) {
+		this.casosDeTeste = casosDeTeste;
 	}
 
 	public CasoDeTeste getCasoDeTesteNovo() {
@@ -213,6 +220,14 @@ public class CadastroProblemaBean implements Serializable {
 
 	public void setCasoDeTesteNovo(CasoDeTeste casoDeTesteNovo) {
 		this.casoDeTesteNovo = casoDeTesteNovo;
+	}
+
+	public CasoDeTeste getSelectedCasoDeTeste() {
+		return selectedCasoDeTeste;
+	}
+
+	public void setSelectedCasoDeTeste(CasoDeTeste selectedCasoDeTeste) {
+		this.selectedCasoDeTeste = selectedCasoDeTeste;
 	}
 
 }

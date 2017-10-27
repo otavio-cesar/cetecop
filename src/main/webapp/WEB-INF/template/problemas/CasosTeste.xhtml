@@ -29,16 +29,49 @@
 			<p:spacer />
 			<p:commandButton value="Adicionar caso de teste" style="width: 108%;"
 				action="#{cadastroProblemaBean.salvarCasoDeTeste}"
-				process="@this nome-caso" update="nome-caso" />
+				process="@this nome-caso descricao-caso entrada saida"
+				update="nome-caso descricao-caso entrada saida" />
 
 		</p:panelGrid>
 	</div>
 
 	<div style="float: left; width: 50%; margin-top: 15px">
-		<h3>Casos adicionados</h3>
-		Caso 1
-		<p:button title="Remover" icon="fa fa-fw fa-remove"
-			style="margin-left: 10px" />
+		<p:dataTable id="basicDT" var="casos"
+			value="#{cadastroProblemaBean.casosDeTeste}">
+			<f:facet name="header">
+            	Casos adicionados
+            </f:facet>
+			<p:column headerText="Id">
+				<h:outputText value="#{casos.nome}" />
+			</p:column>
+			<p:column headerText="Default">
+				<p:selectBooleanCheckbox value="#{casos.padrao}" />
+			</p:column>
+			<p:column style="width:32px;text-align: center">
+				<p:commandButton update="carDetail" process="@this carDetail"
+					oncomplete="PF('carOP').show()" icon="ui-icon-search" title="View">
+					<f:setPropertyActionListener value="#{casos}"
+						target="#{cadastroProblemaBean.selectedCasoDeTeste}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		<p:overlayPanel widgetVar="carOP" showEffect="fade" hideEffect="fade"
+			dismissable="false" showCloseIcon="true">
+			
+			asdsdd
+			<p:outputPanel id="carDetail" style="text-align:center;">
+				<p:panelGrid columns="2"
+					rendered="#{cadastroProblemaBean.selectedCasoDeTeste}"
+					columnClasses="rotulo, campo">
+asd
+					<h:outputText value="Id:" />
+					<h:outputText
+						value="#{cadastroProblemaBean.selectedCasoDeTeste.nome}" />
+
+				</p:panelGrid>
+			</p:outputPanel>
+		</p:overlayPanel>
 	</div>
 	<div style="clear: both;"></div>
 

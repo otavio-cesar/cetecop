@@ -1,6 +1,7 @@
 package repository;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -27,10 +28,9 @@ public class CasoDeTesteRepository implements Serializable {
 		}
 	}
 
-	// public List<Categoria> buscarCategoria() {
-	// return manager.createQuery("from Categoria order by nome",
-	// Categoria.class).getResultList();
-	// }
+	public List<CasoDeTeste> buscarCasoDeTeste() {
+		return manager.createQuery("from CasoDeTeste", CasoDeTeste.class).getResultList();
+	}
 
 	public CasoDeTeste buscarPorId(Integer id) {
 		return manager.find(CasoDeTeste.class, id);

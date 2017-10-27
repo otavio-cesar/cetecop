@@ -9,12 +9,6 @@
 
 	<ui:define name="corpo">
 
-		<f:metadata>
-			<f:viewParam name="fixbug"></f:viewParam>
-			<f:event listener="#{cadastroClienteBean.inicializar}"
-				type="preRenderView" />
-		</f:metadata>
-
 		<div style="margin: 0 auto; width: 95%;">
 			<h1>Histórico submissão</h1>
 			<h:form>
@@ -27,10 +21,10 @@
 						<p:rowToggler />
 					</p:column>
 					<p:column headerText="Id">
-						<h:outputText value="#{car.id}" />
+						<h:outputText value="" />
 					</p:column>
 					<p:column headerText="Problema">
-						<h:outputText value="#{car.nome}" />
+						<h:outputText value="" />
 					</p:column>
 
 					<p:rowExpansion >
@@ -39,10 +33,10 @@
 							
 
 							<h:outputText value="Id:" />
-							<h:outputText value="#{car.id}" />
+							<h:outputText value="" />
 
 							<h:outputText value="Year" />
-							<h:outputText value="#{car.nome}" />
+							<h:outputText value="" />
 
 							
 						</p:panelGrid>
