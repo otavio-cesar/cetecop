@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.faces.bean.ViewScoped;
@@ -52,24 +53,21 @@ public class CadastroProblemaBean implements Serializable {
 	private List<CasoDeTeste> casosDeTeste;
 	private CasoDeTeste casoDeTesteNovo;
 	private CasoDeTeste selectedCasoDeTeste;
+	private CasoDeTeste selectedCasoDeTesteToExclude;
 
 	public CadastroProblemaBean() {
 		this.problema = new Problema();
 		this.versao = new Versao();
 		this.categoriaNova = new Categoria();
 		this.casoDeTesteNovo = new CasoDeTeste();
+		this.casosDeTeste = new ArrayList<CasoDeTeste>();
 	}
 
 	public void inicializar(ComponentSystemEvent e) {
 		if (FacesUtil.isNotPostback()) {
 			carregarCategorias();
 			carregarLinguas();
-			carregarCasosDeTeste();
 		}
-	}
-
-	private void carregarCasosDeTeste() {
-		this.casosDeTeste = casoDeTesteRepository.buscarCasoDeTeste();
 	}
 
 	private void carregarLinguas() {
@@ -87,41 +85,35 @@ public class CadastroProblemaBean implements Serializable {
 		problema.setOwner(Seguranca.getUsuarioLogado().getUsuario());
 		problema = problemaRepository.guardar(problema);
 
-		if (problema.getId() == null) {
-			FacesUtil
-					.addErrorMessage("Ocorreu um erro ao cadastar o problema.");
-			return;
-		}
-
 		versao.setProblema(problema);
 
-		if (versaoRepository.guardar(versao)) {
-			for (int i = 0; i < selectedCategorias.size(); i++) {
-				ProblemaHasCategoria problemaCategoria = new ProblemaHasCategoria();
-				problemaCategoria.setProblema(problema);
+		versaoRepository.guardar(versao);
 
-				Categoria categoria = categoriaRepository.buscarPorId(Integer
-						.parseInt(selectedCategorias.get(i) + ""));
-				problemaCategoria.setCategoria(categoria);
-				problemaCategoria.setUser(problema.getOwner());
+		// Cadastro de categorias
 
-				if (!problemaCategoriaRepository.guardar(problemaCategoria)) {
-					FacesUtil
-							.addErrorMessage("Ocorreu um erro ao cadastar a categoria do problema.");
-					return;
-				}
-			}
-		} else {
-			FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar a versao.");
-			return;
+		for (int i = 0; i < selectedCategorias.size(); i++) {
+			ProblemaHasCategoria problemaCategoria = new ProblemaHasCategoria();
+			problemaCategoria.setProblema(problema);
+
+			Integer categoriaId = Integer.parseInt(selectedCategorias.get(i) + "");
+			Categoria categoria = categoriaRepository.buscarPorId(categoriaId);
+			problemaCategoria.setCategoria(categoria);
+			problemaCategoria.setUser(problema.getOwner());
+
+			problemaCategoriaRepository.guardar(problemaCategoria);
 		}
 
-		// if(casoTesteRepository.guardar(casoTeste)){
-		// TODO
-		// }else{
-		// FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar o caso de teste.");
-		// return;
-		// }
+		// Cadastro de casos de teste
+
+		for (int i = 0; i < casosDeTeste.size(); i++) {
+			casosDeTeste.get(i).setProblema(problema);
+			casoDeTesteRepository.guardar(casosDeTeste.get(i));
+		}
+
+		this.casosDeTeste = new ArrayList<CasoDeTeste>();
+		this.versao = new Versao();
+		this.problema = new Problema();
+		this.selectedCategorias = new ArrayList<Categoria>();
 
 		FacesUtil.addInfoMessage("Problema cadastrado com sucesso.");
 	}
@@ -133,29 +125,26 @@ public class CadastroProblemaBean implements Serializable {
 			return;
 		}
 
-		if (categoriaRepository.guardar(categoriaNova)) {
-			FacesUtil.addWarnMessage("Categoria cadastrada.");
-			carregarCategorias();
+		categoriaRepository.guardar(categoriaNova);
+		FacesUtil.addWarnMessage("Categoria cadastrada.");
+		carregarCategorias();
 
-			this.categoriaNova = new Categoria();
-		} else {
-			FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar categoria.");
-		}
+		this.categoriaNova = new Categoria();
+	}
+
+	public void excluirCasoDeTeste() {
+		casosDeTeste.remove(selectedCasoDeTesteToExclude);
+		FacesUtil.addWarnMessage("Caso de teste removido.");
 	}
 
 	public void salvarCasoDeTeste() {
 		casoDeTesteNovo.setCreator(Seguranca.getUsuarioLogado().getUsuario());
 		casoDeTesteNovo.setPadrao(true);
-		
-		if (casoDeTesteRepository.guardar(casoDeTesteNovo)) {
-			FacesUtil.addWarnMessage("Caso de teste cadastrado com sucesso.");
-			carregarCasosDeTeste();
 
-			this.casoDeTesteNovo = new CasoDeTeste();
-		} else {
-			FacesUtil
-					.addErrorMessage("Ocorreu um erro ao cadastar o caso de teste.");
-		}
+		casosDeTeste.add(casoDeTesteNovo);
+		this.casoDeTesteNovo = new CasoDeTeste();
+
+		FacesUtil.addWarnMessage("Caso de teste adicionado.");
 	}
 
 	public Problema getProblema() {
@@ -228,6 +217,14 @@ public class CadastroProblemaBean implements Serializable {
 
 	public void setSelectedCasoDeTeste(CasoDeTeste selectedCasoDeTeste) {
 		this.selectedCasoDeTeste = selectedCasoDeTeste;
+	}
+
+	public CasoDeTeste getSelectedCasoDeTesteToExclude() {
+		return selectedCasoDeTesteToExclude;
+	}
+
+	public void setSelectedCasoDeTesteToExclude(CasoDeTeste selectedCasoDeTesteToExclude) {
+		this.selectedCasoDeTesteToExclude = selectedCasoDeTesteToExclude;
 	}
 
 }

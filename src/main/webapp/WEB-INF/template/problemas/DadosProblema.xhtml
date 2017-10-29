@@ -34,14 +34,14 @@
 					itemLabel="#{cat.nome}" itemValue="#{cat}" />
 			</p:selectCheckboxMenu>
 			<span style="margin-left: 10px;"> <p:commandButton
-					value="Nova categoria" type="button" onclick="PF('dlg1').show();"
+					value="Nova categoria" type="button" onclick="PF('dlg2').show();"
 					style="bottom: 9.5px;" />
 			</span>
 		</h:panelGroup>
 
 	</p:panelGrid>
 
-	<p:dialog header="Nova categoria" widgetVar="dlg1" minHeight="40"
+	<p:dialog header="Nova categoria" widgetVar="dlg2" minHeight="40"
 		style="padding-bottom: 15px;" width="35%">
 		<br />
 		<p:outputLabel value="Nome" for="nome-cat" />
@@ -49,11 +49,11 @@
 			style="width: 80%; margin-left: 10px;margin-bottom:20px"
 			value="#{cadastroProblemaBean.categoriaNova.nome}" />
 		<br />
-		<p:commandButton value="Cadastrar" oncomplete="PF('dlg1').hide();"
+		<p:commandButton value="Cadastrar" oncomplete="PF('dlg2').hide();"
 			action="#{cadastroProblemaBean.salvarCategoria}"
 			process="@this nome-cat" update="nome-cat categoria">
 		</p:commandButton>
-		<p:button value="Cancelar" onclick="PF('dlg1').hide(); return false;"
+		<p:button value="Cancelar" onclick="PF('dlg2').hide(); return false;"
 			style="margin-left: 5px;" />
 	</p:dialog>
 

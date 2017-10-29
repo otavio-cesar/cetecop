@@ -5,73 +5,112 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<div style="float: left; width: 50%;">
-		<p:panelGrid columns="2" style="width: 50%; margin-top: 20px;"
+		<p:panelGrid columns="2" style="width: 100%; margin-top: 20px;"
 			columnClasses="rotulo, campo">
 
 			<p:outputLabel value="Nome" for="nome-caso" />
-			<p:inputText id="nome-caso" style="width: 200%;"
+			<p:inputText id="nome-caso" style="width: 70%;"
 				value="#{cadastroProblemaBean.casoDeTesteNovo.nome}" />
 
 			<p:outputLabel value="Descrição" for="descricao-caso" />
-			<p:inputText id="descricao-caso" style="width: 200%;"
+			<p:inputText id="descricao-caso" style="width: 70%;"
 				value="#{cadastroProblemaBean.casoDeTesteNovo.descricao}" />
 
 			<p:outputLabel for="entrada" value="Entradas" />
-			<p:inputTextarea id="entrada" style="width:200%;" rows="5"
-				autoResize="true"
+			<p:inputTextarea id="entrada" style="width:70%;" rows="5"
+				autoResize="false" scrollHeight="60"
 				value="#{cadastroProblemaBean.casoDeTesteNovo.entrada}" />
 
 			<p:outputLabel for="saida" value="Saídas" />
-			<p:inputTextarea id="saida" style="width: 200%;" rows="5"
-				autoResize="true"
+			<p:inputTextarea id="saida" style="width: 70%;" rows="5"
+				autoResize="false" scrollHeight="60"
 				value="#{cadastroProblemaBean.casoDeTesteNovo.saida}" />
 
 			<p:spacer />
-			<p:commandButton value="Adicionar caso de teste" style="width: 108%;"
+			<p:commandButton value="Adicionar caso de teste" style="width: 48%;"
 				action="#{cadastroProblemaBean.salvarCasoDeTeste}"
 				process="@this nome-caso descricao-caso entrada saida"
-				update="nome-caso descricao-caso entrada saida" />
+				update="nome-caso descricao-caso entrada saida basicDT"
+				partialSubmit="true" />
 
 		</p:panelGrid>
 	</div>
 
-	<div style="float: left; width: 50%; margin-top: 15px">
+	<div style="float: left; width: 50%; margin-top: 30px">
 		<p:dataTable id="basicDT" var="casos"
-			value="#{cadastroProblemaBean.casosDeTeste}">
+			value="#{cadastroProblemaBean.casosDeTeste}" style="width:100%;">
 			<f:facet name="header">
             	Casos adicionados
             </f:facet>
-			<p:column headerText="Id">
+			<p:column headerText="Nome" style="width:50%;text-align: center">
 				<h:outputText value="#{casos.nome}" />
 			</p:column>
-			<p:column headerText="Default">
+			<p:column headerText="Default" style="width:10%;text-align: center">
 				<p:selectBooleanCheckbox value="#{casos.padrao}" />
 			</p:column>
-			<p:column style="width:32px;text-align: center">
-				<p:commandButton update="carDetail" process="@this carDetail"
-					oncomplete="PF('carOP').show()" icon="ui-icon-search" title="View">
+			<p:column style="width:7%;text-align: center">
+				<p:commandButton update="casoPanel panelGrid"
+					process="@this casoPanel panelGrid"
+					oncomplete="PF('casoDetail').show()" icon="fa fa-fw fa-search"
+					title="Detalhes">
 					<f:setPropertyActionListener value="#{casos}"
 						target="#{cadastroProblemaBean.selectedCasoDeTeste}" />
 				</p:commandButton>
 			</p:column>
+			<p:column style="width:7%;text-align: center">
+				<p:commandButton process="@this" oncomplete="PF('dlg1').show()"
+					icon="fa fa-fw fa-remove" title="Excluir">
+					<f:setPropertyActionListener value="#{casos}"
+						target="#{cadastroProblemaBean.selectedCasoDeTesteToExclude}" />
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
 
-		<p:overlayPanel widgetVar="carOP" showEffect="fade" hideEffect="fade"
-			dismissable="false" showCloseIcon="true">
-			
-			asdsdd
-			<p:outputPanel id="carDetail" style="text-align:center;">
-				<p:panelGrid columns="2"
-					rendered="#{cadastroProblemaBean.selectedCasoDeTeste}"
-					columnClasses="rotulo, campo">
-asd
-					<h:outputText value="Id:" />
-					<h:outputText
+		<p:dialog widgetVar="casoDetail" showEffect="fade" hideEffect="fade"
+			modal="true" style="width:45%;">
+			<p:outputPanel id="casoPanel">
+				<p:panelGrid columns="2" id="panelGrid"
+					columnClasses="rotulo, campo"
+					rendered="#{not empty cadastroProblemaBean.selectedCasoDeTeste}">
+					<p:outputLabel value="Nome:" />
+					<p:outputLabel
 						value="#{cadastroProblemaBean.selectedCasoDeTeste.nome}" />
+
+					<p:outputLabel value="Descricao:" />
+					<p:outputLabel
+						value="#{cadastroProblemaBean.selectedCasoDeTeste.descricao}" />
+
+					<p:outputLabel value="Entradas:" />
+					<p:inputTextarea cols="25" rows="10" autoResize="false"
+						scrollHeight="60"
+						value="#{cadastroProblemaBean.selectedCasoDeTeste.entrada}"
+						readonly="true" />
+
+					<p:outputLabel value="Saídas:" />
+					<p:inputTextarea cols="25" rows="10" autoResize="false"
+						scrollHeight="60"
+						value="#{cadastroProblemaBean.selectedCasoDeTeste.saida}"
+						readonly="true" />
 
 				</p:panelGrid>
 			</p:outputPanel>
-		</p:overlayPanel>
+		</p:dialog>
+
+		<p:dialog header="Excluir caso de teste" widgetVar="dlg1"
+			minHeight="40" style="padding-bottom: 15px;" width="35%">
+
+			<p:outputLabel
+				value="Deseja realmente excluir o caso de teste selecionado?" />
+			<br />
+			<br />
+			<p:commandButton value="Sim" oncomplete="PF('dlg1').hide();"
+				action="#{cadastroProblemaBean.excluirCasoDeTeste}" process="@this basicDT"
+				update="basicDT">
+			</p:commandButton>
+			<p:button value="Cancelar" onclick="PF('dlg1').hide(); return false;"
+				style="margin-left: 5px;" />
+		</p:dialog>
+
 	</div>
 	<div style="clear: both;"></div>
 

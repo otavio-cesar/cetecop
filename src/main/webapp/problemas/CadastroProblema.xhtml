@@ -22,12 +22,12 @@
 
 				<p:messages autoUpdate="true" closable="true" />
 
-				<p:toolbar style="padding:5px 5px 5px 5px; margin-top:15px">
+				<p:toolbar style="padding:5px 5px 5px 5px; margin-top:10px">
 					<p:toolbarGroup>
 						<p:commandButton value="Salvar"
 							action="#{cadastroProblemaBean.salvar}"
 							process="@this nome enunciado categoria idioma"
-							update="nome enunciado categoria idioma" ajax="true" />
+							update="nome enunciado categoria idioma basicDT" ajax="true" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
