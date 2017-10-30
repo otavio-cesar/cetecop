@@ -5,40 +5,74 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<div style="float: left; width: 50%;">
-		<p:panelGrid columns="2" style="width: 50%; margin-top: 20px;"
+		<p:panelGrid columns="2" style="width: 100%; margin-top: 20px;"
 			columnClasses="rotulo, campo">
 
-			<p:outputLabel value="Nome" for="nome-limite" />
-			<p:inputText id="nome-limite" style="width: 200%; " />
-
-			<p:outputLabel value="Descrição" for="descricao-limite" />
-			<p:inputText id="descricao-limite" style="width: 200%; " />
-
-
-			<p:outputLabel for="tempo" value="Tempo" />
-			<p:inputTextarea id="tempo" style="width:200%;" rows="5"
-				autoResize="true" />
-
-
+			<p:outputLabel for="tempo" value="Tempo " />
+			<h:panelGroup>
+				<p:inputText id="tempo" style="width: 20%;"
+					value="#{cadastroProblemaBean.limite.tempoExecucao}" />
+				<span style="margin-left: 5px;">segundos</span>
+			</h:panelGroup>
 			<p:outputLabel for="categoria-limite" value="Categoria" />
 			<h:panelGroup>
-				<p:selectOneMenu id="categoria-limite" style="width:190%; ">
-					<f:selectItem itemLabel="Nenhuma" />
-					<f:selectItems />
+				<p:selectOneMenu id="categoria-limite" filter="true"
+					filterMatchMode="startsWith" panelStyle="width:300px"
+					style="width:70%"
+					value="#{cadastroProblemaBean.selectedCategoriaToLimite}"
+					required="true" requiredMessage="Categoria deve ser informado">
+					<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+					<f:selectItems value="#{cadastroProblemaBean.categorias}"
+						var="catL" itemLabel="#{catL.nome}" itemValue="#{catL}" />
 				</p:selectOneMenu>
 			</h:panelGroup>
 
 			<p:spacer />
-			<p:button value="Adicionar limite" style="width: 78%;"></p:button>
+			<p:commandButton value="Adicionar limite" style="width: 40%;"
+				partialSubmit="true" process="@this tempo categoria-limite"
+				update="tempo tempo categoria-limite tableLimite"
+				action="#{cadastroProblemaBean.salvarLimite}" />
 		</p:panelGrid>
 	</div>
 
 	<div style="float: left; width: 50%; margin-top: 15px">
-		<h3>Limites adicionados</h3>
-		Limite 1
-		<p:button title="Remover" icon="fa fa-fw fa-remove"
-			style="margin-left: 10px" />
+		<p:dataTable id="tableLimite" var="limite"
+			emptyMessage="Nenhum limite adicionado." rows="8" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom"
+			value="#{cadastroProblemaBean.limites}" style="width:100%;">
+			<f:facet name="header">
+            	Casos adicionados
+            </f:facet>
+			<p:column headerText="Tempo" style="width:45%;text-align: center">
+				<h:outputText value="#{limite.tempoExecucao}" />
+			</p:column>
+			<p:column headerText="Categoria" style="width:45%;text-align: center">
+				<h:outputText value="#{limite.categoria.nome}" />
+			</p:column>
+			<p:column style="width:10%;text-align: center">
+				<p:commandButton process="@this" oncomplete="PF('dlg3').show()"
+					icon="fa fa-fw fa-remove" title="Excluir">
+					<f:setPropertyActionListener value="#{limite}"
+						target="#{cadastroProblemaBean.selectedLimite}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		<p:dialog header="Excluir limite" widgetVar="dlg3" minHeight="40"
+			style="padding-bottom: 15px;" width="35%">
+
+			<p:outputLabel value="Deseja realmente excluir o limite selecionado?" />
+			<br />
+			<br />
+			<p:commandButton value="Sim" oncomplete="PF('dlg3').hide();"
+				action="#{cadastroProblemaBean.excluirLimite}"
+				process="@this tableLimite" update="tableLimite">
+			</p:commandButton>
+			<p:button value="Cancelar" onclick="PF('dlg3').hide(); return false;"
+				style="margin-left: 5px;" />
+		</p:dialog>
 	</div>
+
 	<div style="clear: both;"></div>
 
 </ui:composition>

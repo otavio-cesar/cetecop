@@ -10,11 +10,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import model.CasoDeTeste;
 import model.Categoria;
+import model.Limite;
 import model.Problema;
 import model.ProblemaHasCategoria;
 import model.Versao;
 import repository.CasoDeTesteRepository;
 import repository.CategoriaRepository;
+import repository.LimiteRepository;
 import repository.ProblemaHasCategoriaRepository;
 import repository.ProblemaRepository;
 import repository.VersaoRepository;
@@ -43,17 +45,23 @@ public class CadastroProblemaBean implements Serializable {
 	@Inject
 	private CasoDeTesteRepository casoDeTesteRepository;
 
+	@Inject
+	private LimiteRepository limiteRepository;
+
 	private Problema problema;
 	private Versao versao;
 	private Lingua lingua;
 	private Categoria categoriaNova;
 	private List<Categoria> selectedCategorias;
+	private Categoria selectedCategoriaToLimite;
 	private List<Categoria> categorias;
 	private List<Lingua> linguas;
 	private List<CasoDeTeste> casosDeTeste;
 	private CasoDeTeste casoDeTesteNovo;
 	private CasoDeTeste selectedCasoDeTeste;
-	private CasoDeTeste selectedCasoDeTesteToExclude;
+	private Limite selectedLimite;
+	private Limite limite;
+	private List<Limite> limites;
 
 	public CadastroProblemaBean() {
 		this.problema = new Problema();
@@ -61,6 +69,9 @@ public class CadastroProblemaBean implements Serializable {
 		this.categoriaNova = new Categoria();
 		this.casoDeTesteNovo = new CasoDeTeste();
 		this.casosDeTeste = new ArrayList<CasoDeTeste>();
+		this.limite = new Limite();
+		this.limites = new ArrayList<Limite>();
+
 	}
 
 	public void inicializar(ComponentSystemEvent e) {
@@ -110,10 +121,19 @@ public class CadastroProblemaBean implements Serializable {
 			casoDeTesteRepository.guardar(casosDeTeste.get(i));
 		}
 
+		// Cadastro de limites
+
+		for (int i = 0; i < limites.size(); i++) {
+			limites.get(i).setProblema(problema);
+			limiteRepository.guardar(limites.get(i));
+		}
+
 		this.casosDeTeste = new ArrayList<CasoDeTeste>();
 		this.versao = new Versao();
 		this.problema = new Problema();
 		this.selectedCategorias = new ArrayList<Categoria>();
+		this.limites = new ArrayList<Limite>();
+		this.limite = new Limite();
 
 		FacesUtil.addInfoMessage("Problema cadastrado com sucesso.");
 	}
@@ -133,8 +153,13 @@ public class CadastroProblemaBean implements Serializable {
 	}
 
 	public void excluirCasoDeTeste() {
-		casosDeTeste.remove(selectedCasoDeTesteToExclude);
+		casosDeTeste.remove(selectedCasoDeTeste);
 		FacesUtil.addWarnMessage("Caso de teste removido.");
+	}
+
+	public void excluirLimite() {
+		limites.remove(selectedLimite);
+		FacesUtil.addWarnMessage("Limite removido.");
 	}
 
 	public void salvarCasoDeTeste() {
@@ -142,9 +167,19 @@ public class CadastroProblemaBean implements Serializable {
 		casoDeTesteNovo.setPadrao(true);
 
 		casosDeTeste.add(casoDeTesteNovo);
-		this.casoDeTesteNovo = new CasoDeTeste();
+		casoDeTesteNovo = new CasoDeTeste();
 
 		FacesUtil.addWarnMessage("Caso de teste adicionado.");
+	}
+
+	public void salvarLimite() {
+		limite.setCategoria(selectedCategoriaToLimite);
+		limites.add(limite);
+
+		limite = new Limite();
+		selectedCategoriaToLimite = null;
+
+		FacesUtil.addWarnMessage("Limite adicionado.");
 	}
 
 	public Problema getProblema() {
@@ -199,14 +234,6 @@ public class CadastroProblemaBean implements Serializable {
 		return casosDeTeste;
 	}
 
-	public void setCasosDeTeste(List<CasoDeTeste> casosDeTeste) {
-		this.casosDeTeste = casosDeTeste;
-	}
-
-	public CasoDeTeste getCasoDeTesteNovo() {
-		return casoDeTesteNovo;
-	}
-
 	public void setCasoDeTesteNovo(CasoDeTeste casoDeTesteNovo) {
 		this.casoDeTesteNovo = casoDeTesteNovo;
 	}
@@ -219,12 +246,36 @@ public class CadastroProblemaBean implements Serializable {
 		this.selectedCasoDeTeste = selectedCasoDeTeste;
 	}
 
-	public CasoDeTeste getSelectedCasoDeTesteToExclude() {
-		return selectedCasoDeTesteToExclude;
+	public CasoDeTeste getCasoDeTesteNovo() {
+		return casoDeTesteNovo;
 	}
 
-	public void setSelectedCasoDeTesteToExclude(CasoDeTeste selectedCasoDeTesteToExclude) {
-		this.selectedCasoDeTesteToExclude = selectedCasoDeTesteToExclude;
+	public Limite getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Limite limite) {
+		this.limite = limite;
+	}
+
+	public List<Limite> getLimites() {
+		return limites;
+	}
+
+	public Limite getSelectedLimite() {
+		return selectedLimite;
+	}
+
+	public void setSelectedLimite(Limite selectedLimite) {
+		this.selectedLimite = selectedLimite;
+	}
+
+	public Categoria getSelectedCategoriaToLimite() {
+		return selectedCategoriaToLimite;
+	}
+
+	public void setSelectedCategoriaToLimite(Categoria selectedCategoriaToLimite) {
+		this.selectedCategoriaToLimite = selectedCategoriaToLimite;
 	}
 
 }

@@ -27,7 +27,7 @@
 				value="#{cadastroProblemaBean.casoDeTesteNovo.saida}" />
 
 			<p:spacer />
-			<p:commandButton value="Adicionar caso de teste" style="width: 48%;"
+			<p:commandButton value="Adicionar caso de teste" style="width: 40%;"
 				action="#{cadastroProblemaBean.salvarCasoDeTeste}"
 				process="@this nome-caso descricao-caso entrada saida"
 				update="nome-caso descricao-caso entrada saida basicDT"
@@ -38,6 +38,8 @@
 
 	<div style="float: left; width: 50%; margin-top: 30px">
 		<p:dataTable id="basicDT" var="casos"
+			emptyMessage="Nenhum caso adicionado." rows="8" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom"
 			value="#{cadastroProblemaBean.casosDeTeste}" style="width:100%;">
 			<f:facet name="header">
             	Casos adicionados
@@ -61,7 +63,7 @@
 				<p:commandButton process="@this" oncomplete="PF('dlg1').show()"
 					icon="fa fa-fw fa-remove" title="Excluir">
 					<f:setPropertyActionListener value="#{casos}"
-						target="#{cadastroProblemaBean.selectedCasoDeTesteToExclude}" />
+						target="#{cadastroProblemaBean.selectedCasoDeTeste}" />
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>
@@ -104,8 +106,8 @@
 			<br />
 			<br />
 			<p:commandButton value="Sim" oncomplete="PF('dlg1').hide();"
-				action="#{cadastroProblemaBean.excluirCasoDeTeste}" process="@this basicDT"
-				update="basicDT">
+				action="#{cadastroProblemaBean.excluirCasoDeTeste}"
+				process="@this basicDT" update="basicDT">
 			</p:commandButton>
 			<p:button value="Cancelar" onclick="PF('dlg1').hide(); return false;"
 				style="margin-left: 5px;" />
