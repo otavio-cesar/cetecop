@@ -1,27 +1,36 @@
-package model;
+package model.entidades;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Instituicao {
+public class Categoria {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@NotNull
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(nullable = false)
+	private Usuario user;
 
 	@Column(length = 240)
 	private String nome;
 
-	public Integer getId() {
-		return id;
+	public Usuario getUser() {
+		return user;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 
 	public String getNome() {
@@ -30,6 +39,14 @@ public class Instituicao {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override
@@ -48,7 +65,7 @@ public class Instituicao {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Instituicao other = (Instituicao) obj;
+		Categoria other = (Categoria) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -57,9 +74,11 @@ public class Instituicao {
 		return true;
 	}
 
+	// Nao alterar este metodo. Necessario para o selectedCategorias usado no
+	// metodo salvar do CadastroProblemaBean funcionar.
 	@Override
 	public String toString() {
-		return "Instituicao [id=" + id + ", nome=" + nome + "]";
+		return id == null ? "" : id.toString();
 	}
 
 }

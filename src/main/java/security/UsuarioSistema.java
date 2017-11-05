@@ -1,9 +1,11 @@
 package security;
 
 import java.util.Collection;
-import model.Usuario;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
+import model.entidades.Usuario;
 
 public class UsuarioSistema extends User {
 

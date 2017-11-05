@@ -5,7 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Categoria;
+
+import model.entidades.Categoria;
 
 public class CategoriaRepository implements Serializable {
 

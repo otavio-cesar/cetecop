@@ -6,8 +6,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import model.Instituicao;
-import model.Usuario;
+
+import model.entidades.Instituicao;
+import model.entidades.Usuario;
 import repository.InstituicaoRepository;
 import repository.UsuarioRepository;
 import util.jsf.FacesUtil;

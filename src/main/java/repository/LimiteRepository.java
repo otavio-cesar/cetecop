@@ -4,7 +4,8 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.Limite;
+
+import model.entidades.Limite;
 
 public class LimiteRepository implements Serializable {
 
