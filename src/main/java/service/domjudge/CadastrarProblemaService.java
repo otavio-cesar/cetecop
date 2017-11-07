@@ -1,26 +1,32 @@
 package service.domjudge;
 
-import java.io.Serializable;
-import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-
 import model.Evento;
 import model.entidades.Versao;
 
-public class CadastrarProblemaService implements Serializable {
+@Named
+public class CadastrarProblemaService {
 
-	private static final long serialVersionUID = 1L;
-
+	// TODO Implementar injecao automatica de unidade de persistencia domjudge
 	private EntityManager manager;
 
-	public boolean guardar(Versao versao, Evento evento) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("PedidoPU");
+	public void guardar(Versao versao, Evento evento) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("domjudge");
 		manager = factory.createEntityManager();
 
-		manager.createQuery("INSERT INTO Problem () :custName").setParameter("custName", name)
-				.setMaxResults(10).getResultList();
-		return false;
+		EntityTransaction trx = this.manager.getTransaction();
+		trx.begin();
+
+		manager.createNativeQuery("INSERT INTO problem (timelimit, name) VALUES (:limit, :name)")
+				.setParameter("limit", 959).setParameter("name", "valdue").executeUpdate();
+
+		trx.commit();
+
+		manager.close();
+
 	}
 }
