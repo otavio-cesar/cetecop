@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.entidades.Versao;
+import model.entity.Versao;
 
 public class VersaoRepository implements Serializable {
 

@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import model.entidades.Categoria;
+import model.entity.Categoria;
 import repository.CategoriaRepository;
 import util.cdi.CDIServiceLocator;
 

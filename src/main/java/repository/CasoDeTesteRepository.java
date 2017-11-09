@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.entidades.CasoDeTeste;
+import model.entity.CasoDeTeste;
 
 public class CasoDeTesteRepository implements Serializable {
 

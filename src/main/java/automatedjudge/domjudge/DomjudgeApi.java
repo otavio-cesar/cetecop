@@ -2,10 +2,10 @@ package automatedjudge.domjudge;
 
 import automatedjudge.AutomatedJudge;
 import model.Evento;
-import model.entidades.Problema;
-import model.entidades.Solucao;
-import model.entidades.Versao;
-import service.domjudge.CadastrarProblemaService;
+import model.entity.Problema;
+import model.entity.Solucao;
+import model.entity.Versao;
+import service.domjudge.CadastroProblemaService;
 
 public class DomjudgeApi implements AutomatedJudge {
 
@@ -17,7 +17,7 @@ public class DomjudgeApi implements AutomatedJudge {
 
 	@Override
 	public void cadastrarProblema(Versao versao, Evento evento) {
-		CadastrarProblemaService cadastrarProblema = new CadastrarProblemaService();
+		CadastroProblemaService cadastrarProblema = new CadastroProblemaService();
 		cadastrarProblema.guardar(versao, evento);
 
 	}

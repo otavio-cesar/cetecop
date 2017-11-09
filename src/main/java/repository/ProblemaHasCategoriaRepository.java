@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.entidades.ProblemaHasCategoria;
+import model.entity.ProblemaHasCategoria;
 
 public class ProblemaHasCategoriaRepository implements Serializable {
 

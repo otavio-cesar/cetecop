@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import model.entidades.Instituicao;
+import model.entity.Instituicao;
 import repository.InstituicaoRepository;
 import util.cdi.CDIServiceLocator;
 

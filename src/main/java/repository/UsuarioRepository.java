@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.entidades.Usuario;
+import model.entity.Usuario;
 
 public class UsuarioRepository implements Serializable {
 

@@ -1,16 +1,15 @@
-package model.entidades;
+package model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "problema_has_categoria")
-public class ProblemaHasCategoria {
+public class Limite {
 
 	@Id
 	@GeneratedValue
@@ -26,10 +25,16 @@ public class ProblemaHasCategoria {
 	@JoinColumn(nullable = false)
 	private Categoria categoria;
 
-	@NotNull
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Usuario user;
+	@Min(1)
+	private int tempoExecucao;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Problema getProblema() {
 		return problema;
@@ -47,20 +52,12 @@ public class ProblemaHasCategoria {
 		this.categoria = categoria;
 	}
 
-	public Usuario getUser() {
-		return user;
+	public int getTempoExecucao() {
+		return tempoExecucao;
 	}
 
-	public void setUser(Usuario user) {
-		this.user = user;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public void setTempoExecucao(int tempoExecucao) {
+		this.tempoExecucao = tempoExecucao;
 	}
 
 }

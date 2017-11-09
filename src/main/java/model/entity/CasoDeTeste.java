@@ -1,4 +1,4 @@
-package model.entidades;
+package model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-@Table(name = "caso_de_teste")
+@Table(name = "Caso_De_Teste")
 public class CasoDeTeste {
 
 	@Id

@@ -1,9 +1,9 @@
 package automatedjudge;
 
 import model.Evento;
-import model.entidades.Problema;
-import model.entidades.Solucao;
-import model.entidades.Versao;
+import model.entity.Problema;
+import model.entity.Solucao;
+import model.entity.Versao;
 
 public interface AutomatedJudge {
 

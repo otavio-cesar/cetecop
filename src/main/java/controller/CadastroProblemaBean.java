@@ -9,12 +9,12 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import model.entidades.CasoDeTeste;
-import model.entidades.Categoria;
-import model.entidades.Limite;
-import model.entidades.Problema;
-import model.entidades.ProblemaHasCategoria;
-import model.entidades.Versao;
+import model.entity.CasoDeTeste;
+import model.entity.Categoria;
+import model.entity.Limite;
+import model.entity.Problema;
+import model.entity.ProblemaHasCategoria;
+import model.entity.Versao;
 import repository.CasoDeTesteRepository;
 import repository.CategoriaRepository;
 import repository.LimiteRepository;

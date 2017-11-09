@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import model.entidades.Instituicao;
+import model.entity.Instituicao;
 
 public class InstituicaoRepository implements Serializable {
 

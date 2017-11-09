@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import model.entidades.Usuario;
+import model.entity.Usuario;
 import repository.UsuarioRepository;
 import util.cdi.CDIServiceLocator;
 

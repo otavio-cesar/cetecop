@@ -9,7 +9,6 @@ public class TestaRecursoSyncronized extends Thread {
 		}
 		
 		System.err.println("Fim criacao das 10 threads, mas contando relogio.");
-		
 	}
 
 	private static synchronized void relogio() {
@@ -20,7 +19,6 @@ public class TestaRecursoSyncronized extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@Override
@@ -28,5 +26,4 @@ public class TestaRecursoSyncronized extends Thread {
 		relogio();
 		
 	}
-	
 }
