@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "Caso_De_Teste")
-public class CasoDeTeste {
+public class CasoDeTeste{
 
 	@Id
 	@GeneratedValue
@@ -21,12 +21,12 @@ public class CasoDeTeste {
 	@ManyToOne
 	@JoinColumn(nullable = true)
 	private Problema problema;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario creator;
-	
+
 	@NotBlank
 	private String entrada;
 
@@ -39,7 +39,7 @@ public class CasoDeTeste {
 	@NotBlank
 	@Column(length = 100)
 	private String nome;
-	
+
 	private boolean isPadrao;
 
 	public Integer getId() {
@@ -105,5 +105,5 @@ public class CasoDeTeste {
 	public void setPadrao(boolean isPadrao) {
 		this.isPadrao = isPadrao;
 	}
-
+	
 }

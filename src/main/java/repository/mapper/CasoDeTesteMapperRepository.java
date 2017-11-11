@@ -1,9 +1,10 @@
-package repository;
+package repository.mapper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import model.entity.CasoDeTesteMapper;
+
+import model.entity.mapper.CasoDeTesteMapper;
 
 public class CasoDeTesteMapperRepository{
 

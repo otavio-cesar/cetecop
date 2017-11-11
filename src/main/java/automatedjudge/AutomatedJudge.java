@@ -1,15 +1,26 @@
 package automatedjudge;
 
+import java.util.ArrayList;
+
 import model.Evento;
-import model.entity.Problema;
+import model.entity.CasoDeTeste;
+import model.entity.Equipe;
 import model.entity.Solucao;
+import model.entity.Usuario;
 import model.entity.Versao;
 
 public interface AutomatedJudge {
+	
+	void cadastrarEvento(Evento evento);
+	
+	void cadastrarProblema(Versao versao, Evento evento);
+	
+	void adicionarUsuarioEmEquipe(Usuario usuario, Equipe equipe);
 
-	public void cadastrarContest(Evento evento);
+	void cadastrarEquipe(Equipe equipe);
+
+	void cadastrarCasosDeTeste(ArrayList<CasoDeTeste> casosDeTeste);
+
+	void submeterSolucao(Solucao solucao, Evento evento, Equipe equipe);
 	
-	public void cadastrarProblema(Versao versao, Evento evento);
-	
-	public void submeterSolucao(Solucao solucao, Problema problema, Evento evento);
 }

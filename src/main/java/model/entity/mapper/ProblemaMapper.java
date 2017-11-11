@@ -1,4 +1,4 @@
-package model.entity;
+package model.entity.mapper;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +13,7 @@ public class ProblemaMapper {
 	@GeneratedValue
 	private Integer id;
 
-	private Integer problemaIdCetecop;
+	private Integer problemaIdSource;
 
 	private Integer problemaIdExternal;
 
@@ -22,7 +22,7 @@ public class ProblemaMapper {
 	}
 
 	public ProblemaMapper(Integer problemaIdSource, Integer problemaIdExternal) {
-		this.problemaIdCetecop = problemaIdSource;
+		this.problemaIdSource = problemaIdSource;
 		this.problemaIdExternal = problemaIdExternal;
 	}
 
@@ -34,12 +34,12 @@ public class ProblemaMapper {
 		this.problemaIdExternal = problemaIdExternal;
 	}
 
-	public Integer getProblemaIdCetecop() {
-		return problemaIdCetecop;
+	public Integer getProblemaIdSource() {
+		return problemaIdSource;
 	}
 
-	public void setProblemaIdCetecop(Integer problemaIdCetecop) {
-		this.problemaIdCetecop = problemaIdCetecop;
+	public void setProblemaIdSource(Integer problemaIdSource) {
+		this.problemaIdSource = problemaIdSource;
 	}
 
 }

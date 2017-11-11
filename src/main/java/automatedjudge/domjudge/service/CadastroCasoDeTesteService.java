@@ -6,25 +6,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import model.entity.CasoDeTeste;
-import model.entity.CasoDeTesteMapper;
-import repository.CasoDeTesteMapperRepository;
-import repository.ProblemaMapperRepository;
+import model.entity.mapper.CasoDeTesteMapper;
+import repository.mapper.CasoDeTesteMapperRepository;
+import repository.mapper.ProblemaMapperRepository;
 
 public class CadastroCasoDeTesteService {
-
-	// TODO Injecao automatica de persistencia
-	private EntityManager managerDomjudge;
 
 	private ProblemaMapperRepository problemaMapperRepository;
 
 	public CadastroCasoDeTesteService() {
-		managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
 		problemaMapperRepository = new ProblemaMapperRepository();
 	}
 
 	public void guardar(List<CasoDeTeste> casosDeTeste) {
 		ArrayList<CasoDeTesteMapper> casosDeTesteMapper = new ArrayList<>();
 		Integer problemaIdExternal;
+		
+		EntityManager managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
 
 		for (CasoDeTeste casoDeTeste : casosDeTeste) {
 			problemaIdExternal = problemaMapperRepository.buscaProblemaIdExternal(casoDeTeste.getProblema().getId());
@@ -38,14 +36,17 @@ public class CadastroCasoDeTesteService {
 		managerDomjudge.close();
 	}
 
-	// Permite a insercao de apenas um caso de teste por vez no banco de dados.
-	private static synchronized CasoDeTesteMapper inserirCasosDeTeste(EntityManager manager, CasoDeTeste casoDeTeste, Integer problemaIdExternal) {
+	// Insere registro por vez.
+	private static synchronized CasoDeTesteMapper inserirCasosDeTeste(EntityManager manager, CasoDeTeste casoDeTeste, 
+			Integer problemaIdExternal) {
+		
 		Integer casoDeTesteId;
 		Integer rank;
 
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
+		
 		rank = (Integer) manager.createNativeQuery("SELECT MAX(rank) FROM testcase where probid = :probid")
 				.setParameter("probid", problemaIdExternal)
 				.getSingleResult();
@@ -55,13 +56,18 @@ public class CadastroCasoDeTesteService {
 		} else {
 			rank++;
 		}
-
-		manager.createNativeQuery("INSERT INTO testcase (probid, rank) VALUES (:probid, :rank)")
+		
+		manager.createNativeQuery("INSERT INTO testcase (probid, rank, description, input, output) VALUES (:probid, "
+				+ ":rank, :description, :input, :output)")
 				.setParameter("probid", problemaIdExternal)
 				.setParameter("rank", rank)
+				.setParameter("description", casoDeTeste.getDescricao().getBytes())
+				.setParameter("input", casoDeTeste.getEntrada().getBytes())
+				.setParameter("output", casoDeTeste.getSaida().getBytes())
 				.executeUpdate();
 
-		casoDeTesteId = (int) manager.createNativeQuery("SELECT MAX(testcaseid) FROM testcase").getSingleResult();
+		casoDeTesteId = (Integer) manager.createNativeQuery("SELECT MAX(testcaseid) FROM testcase").getSingleResult();
+		
 		trx.commit();
 
 		return new CasoDeTesteMapper(casoDeTeste.getId(), casoDeTesteId, casoDeTeste.getProblema().getId());

@@ -1,9 +1,10 @@
-package repository;
+package repository.mapper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import model.entity.ProblemaMapper;
+
+import model.entity.mapper.ProblemaMapper;
 
 public class ProblemaMapperRepository {
 
@@ -31,8 +32,8 @@ public class ProblemaMapperRepository {
 			
 		trx.begin();
 		problemaIdExternal = (Integer) manager
-				.createNativeQuery("SELECT problemaIdExternal FROM Problema_Mapper where problemaIdCetecop = :problemaIdCetecop")
-				.setParameter("problemaIdCetecop", problemaIdCetecop)
+				.createNativeQuery("SELECT problemaIdExternal FROM Problema_Mapper where problemaIdSource = :problemaIdSource")
+				.setParameter("problemaIdSource", problemaIdCetecop)
 				.getSingleResult();
 		trx.commit();
 		

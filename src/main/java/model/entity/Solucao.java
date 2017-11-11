@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,34 +14,32 @@ public class Solucao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Problema problema;
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario user;
-	@Lob
-	@Column(columnDefinition = "LONGBLOB")
-	private byte[] codigoFonte;
+
+	@Column(columnDefinition = "TEXT")
+	private String codigoFonte;
+
 	@Column(length = 20)
 	private String linguagem;
+
 	@Column(length = 100)
 	private String nomeArquivo;
-	@Column(nullable = false, columnDefinition = "BIT", length = 1)
+
+	@Column(nullable = false) // , columnDefinition = "VARCHAR", length = 1)
 	private boolean valida;
+
 	@Column(length = 25)
 	private String resultado;
-	@Lob
-	@Column(columnDefinition = "LONGBLOB")
-	private byte[] outputCompile;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	@Column(columnDefinition = "TEXT")
+	private String outputCompile;
 
 	public Problema getProblema() {
 		return problema;
@@ -60,11 +57,11 @@ public class Solucao {
 		this.user = user;
 	}
 
-	public byte[] getCodigoFonte() {
+	public String getCodigoFonte() {
 		return codigoFonte;
 	}
 
-	public void setCodigoFonte(byte[] codigoFonte) {
+	public void setCodigoFonte(String codigoFonte) {
 		this.codigoFonte = codigoFonte;
 	}
 
@@ -100,12 +97,20 @@ public class Solucao {
 		this.resultado = resultado;
 	}
 
-	public byte[] getOutputCompile() {
+	public String getOutputCompile() {
 		return outputCompile;
 	}
 
-	public void setOutputCompile(byte[] outputCompile) {
+	public void setOutputCompile(String outputCompile) {
 		this.outputCompile = outputCompile;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
