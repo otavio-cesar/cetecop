@@ -1,8 +1,6 @@
-package service.domjudge;
+package automatedjudge.domjudge.service;
 
-import java.io.Serializable;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import model.Evento;
@@ -10,27 +8,22 @@ import model.entity.ProblemaMapper;
 import model.entity.Versao;
 import repository.ProblemaMapperRepository;
 
-public class CadastroProblemaService implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+public class CadastroProblemaService {
 
 	private static final int limiteMaximoExecucao = 9999;
 
-	// TODO Implementar injecao automatica de unidade de persistencia
+	// TODO Injecao automatica de persistencia
 	private EntityManager managerDomjudge;
-	
+
 	private ProblemaMapperRepository problemaMapperRepository;
 
-	private EntityManagerFactory factory;
-
 	public CadastroProblemaService() {
-		factory = Persistence.createEntityManagerFactory("domjudge");
+		managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
 		problemaMapperRepository = new ProblemaMapperRepository();
 	}
-	
+
 	public void guardar(Versao versao, Evento evento) {
 		int problemaId;
-		managerDomjudge = factory.createEntityManager();
 
 		problemaId = inserirProblema(managerDomjudge, versao, evento);
 
@@ -40,9 +33,7 @@ public class CadastroProblemaService implements Serializable{
 		managerDomjudge.close();
 	}
 
-	// Insere um registo por vez, para remover o conflito na insercao problemas em
-	// um
-	// evento, pois o MAX(probid) utilizado poderia retornar id's invalidos.
+	// Permite a insercao de apenas um problema por vez no banco de dados.
 	private static synchronized int inserirProblema(EntityManager manager, Versao versao, Evento evento) {
 		int problemaId;
 
@@ -50,21 +41,21 @@ public class CadastroProblemaService implements Serializable{
 
 		trx.begin();
 		manager.createNativeQuery("INSERT INTO problem (timelimit, name) VALUES (:timelimit, :name)")
-				.setParameter("timelimit", limiteMaximoExecucao).setParameter("name", versao.getNome()).executeUpdate();
-		trx.commit();
+				.setParameter("timelimit", limiteMaximoExecucao)
+				.setParameter("name", versao.getNome())
+				.executeUpdate();
 
-		trx.begin();
-		problemaId = (int) manager.createNativeQuery("SELECT MAX(probid) FROM problem").getSingleResult();
-		trx.commit();
+		problemaId = (int) manager.createNativeQuery("SELECT MAX(probid) FROM problem")
+				.getSingleResult();
 
-		trx.begin();
 		manager.createNativeQuery(
 				"INSERT INTO contestproblem (cid, probid, shortname) VALUES (:cid, :probid, :shortname)")
-				.setParameter("cid", evento.getId()).setParameter("probid", problemaId)
-				.setParameter("shortname", versao.getNome().replace(" ", "") + problemaId).executeUpdate();
+				.setParameter("cid", evento.getId())
+				.setParameter("probid", problemaId)
+				.setParameter("shortname", versao.getNome().replace(" ", "") + problemaId)
+				.executeUpdate();
 		trx.commit();
 
 		return problemaId;
 	}
-
 }

@@ -1,11 +1,11 @@
 package automatedjudge.domjudge;
 
 import automatedjudge.AutomatedJudge;
+import automatedjudge.domjudge.service.CadastroProblemaService;
 import model.Evento;
 import model.entity.Problema;
 import model.entity.Solucao;
 import model.entity.Versao;
-import service.domjudge.CadastroProblemaService;
 
 public class DomjudgeApi implements AutomatedJudge {
 

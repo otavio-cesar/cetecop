@@ -28,13 +28,6 @@ public class CasoDeTesteRepository implements Serializable {
 		}
 	}
 
-	// TODO Buscar por problema ID
-	
-	// public List<CasoDeTeste> buscarCasoDeTeste() {
-	// return manager.createQuery("from CasoDeTeste",
-	// CasoDeTeste.class).getResultList();
-	// }
-
 	public CasoDeTeste buscarPorId(Integer id) {
 		return manager.find(CasoDeTeste.class, id);
 	}
