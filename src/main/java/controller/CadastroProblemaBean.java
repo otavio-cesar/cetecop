@@ -22,8 +22,8 @@ import repository.ProblemaHasCategoriaRepository;
 import repository.ProblemaRepository;
 import repository.VersaoRepository;
 import security.Seguranca;
+import util.Lingua;
 import util.jsf.FacesUtil;
-import util.jsf.Lingua;
 
 @Named
 @ViewScoped

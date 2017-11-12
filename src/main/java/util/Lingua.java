@@ -1,4 +1,4 @@
-package util.jsf;
+package util;
 
 public enum Lingua {
 

@@ -11,7 +11,6 @@ import model.Evento;
 import model.entity.CasoDeTeste;
 import model.entity.Equipe;
 import model.entity.Solucao;
-import model.entity.Usuario;
 import model.entity.Versao;
 
 public class DomjudgeApi implements AutomatedJudge {
@@ -40,12 +39,6 @@ public class DomjudgeApi implements AutomatedJudge {
 		cadastroSolucaoService.guardar(solucao, evento, equipe);
 	}
 
-	@Override
-	public void adicionarUsuarioEmEquipe(Usuario usuario, Equipe equipe) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	@Override
 	public void cadastrarEquipe(Equipe equipe) {
 		CadastroEquipeService cadastroEquipeServico = new CadastroEquipeService();

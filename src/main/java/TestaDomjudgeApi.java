@@ -7,6 +7,8 @@ import model.entity.Equipe;
 import model.entity.Problema;
 import model.entity.Solucao;
 import model.entity.Versao;
+import repository.EquipeRepository;
+import util.Linguagem;
 
 public class TestaDomjudgeApi {
 	
@@ -32,7 +34,7 @@ public class TestaDomjudgeApi {
 		casoDeTeste = new CasoDeTeste();
 		casoDeTeste.setDescricao("descricao");
 		casoDeTeste.setProblema(problema);
-		casoDeTeste.setEntrada("1\n2\n3\n4\n");
+		casoDeTeste.setEntrada("1");
 		casoDeTeste.setSaida("Hello World!");
 		casoDeTeste.setId(4);
 		casosDeTeste.add(casoDeTeste);
@@ -40,23 +42,26 @@ public class TestaDomjudgeApi {
 		casoDeTeste = new CasoDeTeste();
 		casoDeTeste.setDescricao("descricao 2");
 		casoDeTeste.setProblema(problema);
-		casoDeTeste.setEntrada("1\n2\n3\n4\n");
+		casoDeTeste.setEntrada("1");
 		casoDeTeste.setSaida("Hello World!");
 		casoDeTeste.setId(3);
-		casosDeTeste.add(casoDeTeste);
+		//casosDeTeste.add(casoDeTeste);
 		
 		domjudgeApi.cadastrarCasosDeTeste(casosDeTeste);
 		
 		Solucao solucao = new Solucao();
 		solucao.setId(rnd.nextInt());
 		solucao.setCodigoFonte(helloworld());
-		solucao.setLinguagem("java");
-		solucao.setNomeArquivo("nome do arquivo");
+		solucao.setLinguagem(Linguagem.java);
+		solucao.setNomeArquivo("nomedoarquivo.java");
 		solucao.setProblema(problema);
 		
 		Equipe equipe = new Equipe();
 		equipe.setId(rnd.nextInt());
 		equipe.setNome("nome equipe");
+		equipe.setEquipeOneUser(true);
+		
+		equipe = new EquipeRepository().guardar(equipe);
 		
 		domjudgeApi.cadastrarEquipe(equipe);
 		

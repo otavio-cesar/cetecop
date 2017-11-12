@@ -1,12 +1,10 @@
 package automatedjudge;
 
 import java.util.ArrayList;
-
 import model.Evento;
 import model.entity.CasoDeTeste;
 import model.entity.Equipe;
 import model.entity.Solucao;
-import model.entity.Usuario;
 import model.entity.Versao;
 
 public interface AutomatedJudge {
@@ -15,8 +13,6 @@ public interface AutomatedJudge {
 	
 	void cadastrarProblema(Versao versao, Evento evento);
 	
-	void adicionarUsuarioEmEquipe(Usuario usuario, Equipe equipe);
-
 	void cadastrarEquipe(Equipe equipe);
 
 	void cadastrarCasosDeTeste(ArrayList<CasoDeTeste> casosDeTeste);

@@ -9,6 +9,8 @@ import repository.mapper.EquipeMapperRepository;
 
 public class CadastroEquipeService {
 	
+	private static final int CATEGORYID_PARTICIPANTS = 3;
+	
 	private EquipeMapperRepository equipeMapperRepository;
 
 	public CadastroEquipeService() {
@@ -36,9 +38,10 @@ public class CadastroEquipeService {
 
 		trx.begin();
 		
-		manager.createNativeQuery("INSERT INTO team (name, externalid) VALUES (:name, :externalid)")
+		manager.createNativeQuery("INSERT INTO team (name, externalid, categoryid) VALUES (:name, :externalid, :categoryid)")
 				.setParameter("name", equipe.getNome())
 				.setParameter("externalid", equipe.getId())
+				.setParameter("categoryid", CATEGORYID_PARTICIPANTS)
 				.executeUpdate();
 
 		equipeId = (Integer) manager.createNativeQuery("SELECT MAX(teamid) FROM team")

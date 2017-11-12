@@ -1,5 +1,6 @@
 package model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,9 +10,20 @@ public class Equipe {
 	
 	@Id
 	@GeneratedValue
-	private Integer Id;
+	private Integer id;
 	
 	private String nome;
+	
+	@Column(columnDefinition = "varchar(1) default 0")
+	private boolean isEquipeOneUser;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -21,12 +33,12 @@ public class Equipe {
 		this.nome = nome;
 	}
 
-	public Integer getId() {
-		return Id;
+	public boolean isEquipeOneUser() {
+		return isEquipeOneUser;
 	}
 
-	public void setId(Integer id) {
-		Id = id;
+	public void setEquipeOneUser(boolean isEquipeOneUser) {
+		this.isEquipeOneUser = isEquipeOneUser;
 	}
 	
 }

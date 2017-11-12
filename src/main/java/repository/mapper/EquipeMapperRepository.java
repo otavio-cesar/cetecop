@@ -9,6 +9,7 @@ public class EquipeMapperRepository {
 
 	public void guardar(EquipeMapper equipeMapper) {
 		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
@@ -23,18 +24,20 @@ public class EquipeMapperRepository {
 		manager.close();
 	}
 
-	// TODO
-	public Integer buscaProblemaIdExternal(Integer problemaIdCetecop) {
+	public Integer buscaEquipeIdExternal(Integer equipeIdSource) {
 		Integer problemaIdExternal;
 
 		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
+		
 		problemaIdExternal = (Integer) manager
 				.createNativeQuery(
-						"SELECT problemaIdExternal FROM Problema_Mapper where problemaIdSource = :problemaIdSource")
-				.setParameter("problemaIdSource", problemaIdCetecop).getSingleResult();
+						"SELECT equipeIdExternal FROM Equipe_Mapper where equipeIdSource = :equipeIdSource")
+				.setParameter("equipeIdSource", equipeIdSource).getSingleResult();
+		
 		trx.commit();
 
 		manager.close();

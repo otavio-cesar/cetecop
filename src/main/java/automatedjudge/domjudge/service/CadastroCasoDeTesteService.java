@@ -62,8 +62,8 @@ public class CadastroCasoDeTesteService {
 				.setParameter("probid", problemaIdExternal)
 				.setParameter("rank", rank)
 				.setParameter("description", casoDeTeste.getDescricao().getBytes())
-				.setParameter("input", casoDeTeste.getEntrada().getBytes())
-				.setParameter("output", casoDeTeste.getSaida().getBytes())
+				.setParameter("input", casoDeTeste.getEntrada().trim().getBytes())
+				.setParameter("output", casoDeTeste.getSaida().trim().getBytes())
 				.executeUpdate();
 
 		casoDeTesteId = (Integer) manager.createNativeQuery("SELECT MAX(testcaseid) FROM testcase").getSingleResult();

@@ -11,7 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import util.jsf.Lingua;
+
+import util.Lingua;
 
 @Entity
 public class Versao {
