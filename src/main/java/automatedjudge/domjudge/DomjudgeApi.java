@@ -1,5 +1,6 @@
 package automatedjudge.domjudge;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import automatedjudge.AutomatedJudge;
@@ -30,7 +31,11 @@ public class DomjudgeApi implements AutomatedJudge {
 	@Override
 	public void cadastrarCasosDeTeste(ArrayList<CasoDeTeste> casosDeTeste) {
 		CadastroCasoDeTesteService cadastroCasoDeTesteServico = new CadastroCasoDeTesteService();
-		cadastroCasoDeTesteServico.guardar(casosDeTeste);
+		try {
+			cadastroCasoDeTesteServico.guardar(casosDeTeste);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

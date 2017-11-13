@@ -1,5 +1,8 @@
 package automatedjudge.domjudge.service;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,7 +21,7 @@ public class CadastroCasoDeTesteService {
 		problemaMapperRepository = new ProblemaMapperRepository();
 	}
 
-	public void guardar(List<CasoDeTeste> casosDeTeste) {
+	public void guardar(List<CasoDeTeste> casosDeTeste) throws NoSuchAlgorithmException {
 		ArrayList<CasoDeTesteMapper> casosDeTesteMapper = new ArrayList<>();
 		Integer problemaIdExternal;
 		
@@ -38,10 +41,16 @@ public class CadastroCasoDeTesteService {
 
 	// Insere registro por vez.
 	private static synchronized CasoDeTesteMapper inserirCasosDeTeste(EntityManager manager, CasoDeTeste casoDeTeste, 
-			Integer problemaIdExternal) {
+			Integer problemaIdExternal) throws NoSuchAlgorithmException {
+
+		MessageDigest m = MessageDigest.getInstance("MD5");
 		
 		Integer casoDeTesteId;
 		Integer rank;
+		String entradaCadasoDeTesteMD5;
+		String saidaCadasoDeTesteMD5;
+		String entradaCadasoDeTeste;
+		String saidaCadasoDeTeste;
 
 		EntityTransaction trx = manager.getTransaction();
 
@@ -57,13 +66,24 @@ public class CadastroCasoDeTesteService {
 			rank++;
 		}
 		
-		manager.createNativeQuery("INSERT INTO testcase (probid, rank, description, input, output) VALUES (:probid, "
-				+ ":rank, :description, :input, :output)")
+		entradaCadasoDeTeste = casoDeTeste.getEntrada().trim().concat("\n");
+		saidaCadasoDeTeste = casoDeTeste.getSaida().trim().concat("\n");
+		
+		m.update(entradaCadasoDeTeste.getBytes(), 0, entradaCadasoDeTeste.length());
+		entradaCadasoDeTesteMD5 = new BigInteger(1, m.digest()).toString(16);
+		
+		m.update(saidaCadasoDeTeste.getBytes(), 0, saidaCadasoDeTeste.length());
+		saidaCadasoDeTesteMD5 = new BigInteger(1, m.digest()).toString(16);
+		
+		manager.createNativeQuery("INSERT INTO testcase (probid, rank, description, input, output, md5sum_input,"
+				+ " md5sum_output) VALUES (:probid, :rank, :description, :input, :output, :md5in, :md5out)")
 				.setParameter("probid", problemaIdExternal)
 				.setParameter("rank", rank)
 				.setParameter("description", casoDeTeste.getDescricao().getBytes())
-				.setParameter("input", casoDeTeste.getEntrada().trim().getBytes())
-				.setParameter("output", casoDeTeste.getSaida().trim().getBytes())
+				.setParameter("input", entradaCadasoDeTeste.getBytes())
+				.setParameter("output",saidaCadasoDeTeste.getBytes())
+				.setParameter("md5in",entradaCadasoDeTesteMD5)
+				.setParameter("md5out",saidaCadasoDeTesteMD5)
 				.executeUpdate();
 
 		casoDeTesteId = (Integer) manager.createNativeQuery("SELECT MAX(testcaseid) FROM testcase").getSingleResult();
