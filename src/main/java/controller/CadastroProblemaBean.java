@@ -8,7 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-
+import automatedjudge.AutomatedJudge;
 import model.entity.CasoDeTeste;
 import model.entity.Categoria;
 import model.entity.Limite;
@@ -23,6 +23,7 @@ import repository.ProblemaRepository;
 import repository.VersaoRepository;
 import security.Seguranca;
 import util.Lingua;
+import util.cdi.Domjudge;
 import util.jsf.FacesUtil;
 
 @Named
@@ -30,7 +31,11 @@ import util.jsf.FacesUtil;
 public class CadastroProblemaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@Inject
+	@Domjudge
+	private AutomatedJudge automatedJudge;
+	
 	@Inject
 	private VersaoRepository versaoRepository;
 
@@ -98,11 +103,11 @@ public class CadastroProblemaBean implements Serializable {
 		problema = problemaRepository.guardar(problema);
 
 		versao.setProblema(problema);
-
-		versaoRepository.guardar(versao);
+		versao.setVersaoPai(true);
+		
+		this.versao = versaoRepository.guardar(versao);
 
 		// Cadastro de categorias
-
 		for (int i = 0; i < selectedCategorias.size(); i++) {
 			ProblemaHasCategoria problemaCategoria = new ProblemaHasCategoria();
 			problemaCategoria.setProblema(problema);
@@ -116,19 +121,20 @@ public class CadastroProblemaBean implements Serializable {
 		}
 
 		// Cadastro de casos de teste
-
 		for (int i = 0; i < casosDeTeste.size(); i++) {
 			casosDeTeste.get(i).setProblema(problema);
-			casoDeTesteRepository.guardar(casosDeTeste.get(i));
+			casosDeTeste.set(i, casoDeTesteRepository.guardar(casosDeTeste.get(i)));
 		}
 
 		// Cadastro de limites
-
 		for (int i = 0; i < limites.size(); i++) {
 			limites.get(i).setProblema(problema);
 			limiteRepository.guardar(limites.get(i));
 		}
 
+		automatedJudge.cadastrarProblema(versao, automatedJudge.buscaEventoComumATodos());
+		automatedJudge.cadastrarCasosDeTeste(casosDeTeste);
+				
 		this.casosDeTeste = new ArrayList<CasoDeTeste>();
 		this.versao = new Versao();
 		this.problema = new Problema();
@@ -278,5 +284,5 @@ public class CadastroProblemaBean implements Serializable {
 	public void setSelectedCategoriaToLimite(Categoria selectedCategoriaToLimite) {
 		this.selectedCategoriaToLimite = selectedCategoriaToLimite;
 	}
-
+	
 }

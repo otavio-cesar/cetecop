@@ -30,6 +30,8 @@ public class Versao {
 	@JoinColumn(nullable = false)
 	private Problema problema;
 
+	private boolean isVersaoPai;
+	
 	@NotNull
 	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(nullable = false)
@@ -107,6 +109,14 @@ public class Versao {
 		return "Versao [id=" + id + ", lingua=" + lingua + ", problema="
 				+ problema + ", user=" + user + ", enunciado=" + enunciado
 				+ ", tematica=" + tematica + ", nome=" + nome + "]";
+	}
+
+	public boolean isVersaoPai() {
+		return isVersaoPai;
+	}
+
+	public void setVersaoPai(boolean isVersaoPai) {
+		this.isVersaoPai = isVersaoPai;
 	}
 
 }

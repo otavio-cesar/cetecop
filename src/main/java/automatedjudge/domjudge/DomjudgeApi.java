@@ -1,8 +1,7 @@
 package automatedjudge.domjudge;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-
+import java.util.List;
 import automatedjudge.AutomatedJudge;
 import automatedjudge.domjudge.service.CadastroCasoDeTesteService;
 import automatedjudge.domjudge.service.CadastroEquipeService;
@@ -27,9 +26,9 @@ public class DomjudgeApi implements AutomatedJudge {
 		CadastroProblemaService cadastroProblemaServico = new CadastroProblemaService();
 		cadastroProblemaServico.guardar(versao, evento);
 	}
-	
+
 	@Override
-	public void cadastrarCasosDeTeste(ArrayList<CasoDeTeste> casosDeTeste) {
+	public void cadastrarCasosDeTeste(List<CasoDeTeste> casosDeTeste) {
 		CadastroCasoDeTesteService cadastroCasoDeTesteServico = new CadastroCasoDeTesteService();
 		try {
 			cadastroCasoDeTesteServico.guardar(casosDeTeste);
@@ -48,6 +47,19 @@ public class DomjudgeApi implements AutomatedJudge {
 	public void cadastrarEquipe(Equipe equipe) {
 		CadastroEquipeService cadastroEquipeServico = new CadastroEquipeService();
 		cadastroEquipeServico.guardar(equipe);
+	}
+
+	@Override
+	public Evento buscaEventoComumATodos() {
+		// TODO Procura no domjudge um evento com nome unico, se nao achar, cadastra
+		// evento com nome unico e retorna seu id para ser usado por todos usuarios.
+
+		Evento evento = new Evento();
+
+		evento.setNome("chave unica para representar id");
+		evento.setId(2);
+
+		return evento;
 	}
 
 }

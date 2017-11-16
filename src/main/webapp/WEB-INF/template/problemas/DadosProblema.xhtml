@@ -51,7 +51,7 @@
 		<br />
 		<p:commandButton value="Cadastrar" oncomplete="PF('dlg2').hide();"
 			action="#{cadastroProblemaBean.salvarCategoria}"
-			process="@this nome-cat" update="nome-cat categoria">
+			process="@this nome-cat" update="nome-cat categoria categoria-limite">
 		</p:commandButton>
 		<p:button value="Cancelar" onclick="PF('dlg2').hide(); return false;"
 			style="margin-left: 5px;" />

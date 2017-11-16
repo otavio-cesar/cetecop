@@ -30,7 +30,7 @@ public class UsuarioRepository implements Serializable {
 	}
 
 	public Usuario buscarPorEmail(String email) {
-		Usuario usuario = null;
+		Usuario usuario;
 		
 		EntityTransaction trx = this.manager.getTransaction();
 		trx.begin();
@@ -40,7 +40,7 @@ public class UsuarioRepository implements Serializable {
 					.setParameter("email", email.toLowerCase()).getSingleResult();
 			trx.commit();
 		} catch (Exception e) {
-			// nenhum usuario encontrado
+			usuario = null;
 		}
 
 		return usuario;

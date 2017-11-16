@@ -14,17 +14,16 @@ public class CasoDeTesteRepository implements Serializable {
 	@Inject
 	private EntityManager manager;
 
-	public boolean guardar(CasoDeTeste casoDeTeste) {
+	public CasoDeTeste guardar(CasoDeTeste casoDeTeste) {
 		EntityTransaction trx = this.manager.getTransaction();
 		trx.begin();
 
 		try {
-			this.manager.merge(casoDeTeste);
+			casoDeTeste = manager.merge(casoDeTeste);
 			trx.commit();
-			return true;
+			return casoDeTeste;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 

@@ -1,6 +1,6 @@
 package automatedjudge;
 
-import java.util.ArrayList;
+import java.util.List;
 import model.Evento;
 import model.entity.CasoDeTeste;
 import model.entity.Equipe;
@@ -15,8 +15,10 @@ public interface AutomatedJudge {
 	
 	void cadastrarEquipe(Equipe equipe);
 
-	void cadastrarCasosDeTeste(ArrayList<CasoDeTeste> casosDeTeste);
+	void cadastrarCasosDeTeste(List<CasoDeTeste> casosDeTeste);
 
 	void submeterSolucao(Solucao solucao, Evento evento, Equipe equipe);
+	
+	Evento buscaEventoComumATodos();
 	
 }

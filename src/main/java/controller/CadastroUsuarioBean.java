@@ -6,7 +6,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import model.entity.Instituicao;
 import model.entity.Usuario;
 import repository.InstituicaoRepository;
@@ -18,7 +17,7 @@ import util.jsf.FacesUtil;
 public class CadastroUsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Inject
 	private UsuarioRepository usuarioRepository;
 
@@ -29,7 +28,7 @@ public class CadastroUsuarioBean implements Serializable {
 	private Instituicao instituicao;
 	private Instituicao instituicaoNova;
 	private List<Instituicao> instituicoes;
-
+	
 	public CadastroUsuarioBean() {
 		this.usuario = new Usuario();
 		this.instituicao = new Instituicao();
@@ -37,8 +36,6 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 
 	public void inicializar(ComponentSystemEvent e) {
-		System.out.println("inicializando instituicoes");
-
 		if (FacesUtil.isNotPostback()) {
 			carregarInstituicoes();
 		}
@@ -103,5 +100,4 @@ public class CadastroUsuarioBean implements Serializable {
 	public void setInstituicaoNova(Instituicao instituicaoNova) {
 		this.instituicaoNova = instituicaoNova;
 	}
-	
 }

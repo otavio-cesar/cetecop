@@ -7,12 +7,10 @@
 	<h:form>
 		<p:panelGrid columns="2" style="width: 100%; margin-top: 20px"
 			columnClasses="rotulo, campo">
-			<p:outputLabel value="Arquivo" />
-
-			<p:fileUpload fileUploadListener="#{fileUploadView.handleFileUpload}"
-				label="Escolher" mode="advanced" update="messages" auto="true"
-				sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" id="file"
-				style="width:31%; " />
+			<p:outputLabel value="Código Fonte" />
+			<p:inputTextarea id="codigofonte" style="width: 70%;"
+				value="Type you code here" autoResize="false" scrollHeight="20"
+				rows="20" />
 
 			<p:outputLabel for="linguagem" value="Linguagem" />
 			<p:selectOneMenu id="linguagem" editable="true" style="width:28.5%; ">
@@ -23,10 +21,6 @@
 			<p:spacer />
 			<p:button outcome="/problemas/CadastroProblema"
 				value="Enviar solução"></p:button>
-
 		</p:panelGrid>
-		
-		<p:growl id="messages" showDetail="true" />
-		
 	</h:form>
 </ui:composition>

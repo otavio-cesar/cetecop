@@ -7,7 +7,8 @@
 
 	<beans:bean id="appUserDetailsService" class="security.AppUserDetailsService" />
 
-	<beans:bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+	<beans:bean id="exceptionTranslationFilter"
+		class="org.springframework.security.web.access.ExceptionTranslationFilter">
 		<beans:property name="accessDeniedHandler" ref="jsfAccessDeniedHandler" />
 		<beans:property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
 	</beans:bean>
@@ -17,7 +18,8 @@
 		<beans:property name="contextRelative" value="true" />
 	</beans:bean>
 
-	<beans:bean id="authenticationEntryPoint" class="security.JsfLoginUrlAuthenticationEntryPoint">
+	<beans:bean id="authenticationEntryPoint"
+		class="security.JsfLoginUrlAuthenticationEntryPoint">
 		<beans:property name="loginFormUrl" value="/Login.xhtml" />
 		<beans:property name="redirectStrategy" ref="jsfRedirectStrategy" />
 	</beans:bean>
@@ -31,18 +33,31 @@
 
 		<intercept-url pattern="/CadastroUsuario.xhtml" access="permitAll" />
 		<intercept-url pattern="/Home.xhtml" access="permitAll" />
+		<intercept-url pattern="/problemas/PesquisaProblema.xhtml"
+			access="permitAll" />
+		<intercept-url pattern="/problemas/VisualizarProblema.xhtml"
+			access="permitAll" />
+
 		<intercept-url pattern="/AcessoNegado.xhtml" access="isAuthenticated()" />
-		<intercept-url pattern="/problemas/ControleVersao.xhtml" access="hasAnyRole('PROFESSOR', 'ADMINISTRADOR')" />
-		<intercept-url pattern="/problemas/CadastroProblema.xhtml" access="hasAnyRole('PROFESSOR', 'ADMINISTRADOR')" />
-		<intercept-url pattern="/problemas/HistoricoSubmissao.xhtml" access="hasAnyRole('PROFESSOR', 'ALUNO', 'ADMINISTRADOR')" />
-		<intercept-url pattern="/problemas/PesquisaProblema.xhtml" access="hasAnyRole('PROFESSOR', 'ALUNO', 'ADMINISTRADOR')" />
-		<intercept-url pattern="/problemas/VisualizarProblema.xhtml" access="hasAnyRole('PROFESSOR', 'ALUNO', 'ADMINISTRADOR')" />
+
+		<intercept-url pattern="/problemas/ControleVersao.xhtml"
+			access="hasAnyRole('PROFESSOR', 'ADMINISTRADOR')" />
+		<intercept-url pattern="/problemas/CadastroProblema.xhtml"
+			access="hasAnyRole('PROFESSOR', 'ADMINISTRADOR')" />
+		<intercept-url pattern="/problemas/HistoricoSubmissao.xhtml"
+			access="hasAnyRole('PROFESSOR', 'ALUNO', 'ADMINISTRADOR')" />
+		<!-- intercept-url pattern="/problemas/PesquisaProblema.xhtml" access="hasAnyRole('PROFESSOR', 
+			'ALUNO', 'ADMINISTRADOR')" /> -->
+		<!-- intercept-url pattern="/problemas/VisualizarProblema.xhtml" access="hasAnyRole('PROFESSOR', 
+			'ALUNO', 'ADMINISTRADOR')" /> -->
 		<!-- intercept-url pattern="/problemas/**" access="isAuthenticated()" / -->
 		<intercept-url pattern="/**" access="denyAll" />
 
-		<form-login login-page="/Login.xhtml" authentication-failure-url="/Login.xhtml?invalid=true"
+		<form-login login-page="/Login.xhtml"
+			authentication-failure-url="/Login.xhtml?invalid=true"
 			default-target-url="/Home.xhtml" always-use-default-target="true" />
-		<logout logout-url="/j_spring_security_logout" invalidate-session="true" />
+		<logout logout-url="/j_spring_security_logout"
+			invalidate-session="true" />
 	</http>
 
 	<authentication-manager>

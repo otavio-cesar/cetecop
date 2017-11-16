@@ -18,7 +18,7 @@ public class Problema {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario owner;
-
+	
 	public Integer getId() {
 		return id;
 	}

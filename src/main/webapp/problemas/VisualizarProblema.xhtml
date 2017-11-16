@@ -3,16 +3,24 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<o:viewParam name="versaoPai" value="#{visualizarProblemaBean.versao}" />
+		<f:event listener="#{visualizarProblemaBean.inicializar}"
+			type="preRenderView" />
+	</f:metadata>
 
 	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
 
 	<ui:define name="corpo">
 		<div style="margin: 0 auto; width: 95%;">
-			<h1>Visualizar problema </h1>
+			<h1>Visualizar problema</h1>
 			<p:tabView style="margin-top: 10px">
 				<p:tab title="Informações do Problema">
-					<ui:include src="/WEB-INF/template/problemas/InformacaoProblema.xhtml" />
+					<ui:include
+						src="/WEB-INF/template/problemas/InformacaoProblema.xhtml" />
 				</p:tab>
 				<p:tab title="Submeter Solução">
 					<ui:include src="/WEB-INF/template/problemas/SubmeterSolucao.xhtml" />
