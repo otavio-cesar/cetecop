@@ -13,7 +13,7 @@
 			<f:event listener="#{cadastroProblemaBean.inicializar}"
 				type="preRenderView" />
 		</f:metadata>
-		
+
 		<div style="margin: 0 auto; width: 95%;">
 			<h1>Novo problema</h1>
 			<h:form id="formCad" prependId="false">
@@ -23,7 +23,8 @@
 						<p:commandButton value="Salvar"
 							action="#{cadastroProblemaBean.salvar}"
 							process="@this nome enunciado categoria idioma"
-							update="nome enunciado categoria idioma basicDT tableLimite" ajax="true" />
+							update="nome enunciado categoria idioma basicDT tableLimite"
+							ajax="true" />
 					</p:toolbarGroup>
 				</p:toolbar>
 
@@ -43,5 +44,5 @@
 		</div>
 		<br />
 	</ui:define>
-	
+
 </ui:composition>

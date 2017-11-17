@@ -34,7 +34,7 @@ public class VersaoRepository implements Serializable {
 		trx.begin();
 
 		try {
-			versao = manager.createQuery("from Versao where isVersaoPai = :isVersaoPai", Versao.class)
+			versao = manager.createQuery("from Versao where isVersaoPai = :isVersaoPai order by nome", Versao.class)
 					.setParameter("isVersaoPai", true).getResultList();
 			trx.commit();
 		} catch (Exception e) {

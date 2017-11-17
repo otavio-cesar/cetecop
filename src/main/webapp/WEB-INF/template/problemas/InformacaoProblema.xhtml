@@ -3,23 +3,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
+	<h:form prependId="false">
 		<p:panelGrid columns="1" style="width: 100%; margin-top: 20px"
 			columnClasses="">
-			<h:panelGroup>
-				<p:outputLabel value="Nome:" />
-				<p:outputLabel id="nome" style="width: 29.5%;margin-left:10px; "
-					value="#{visualizarProblemaBean.versao.nome}" />
-			</h:panelGroup>
-			
-			<p:outputLabel value="Enunciado" for="descricao" />
-
-			<p:inputTextarea id="descricao"
-				style="width: 100%;font-size:14px;line-height: 1.5;font-family:Arial"
+			<p:outputLabel id="nome"
+				style="width: 29.5%; margin-left:5px;font-size:16px;line-height: 1.5;font-family:Arial"
+				value="#{visualizarProblemaBean.versao.nome}" />
+			<p:inputTextarea id="enunciado"
+				style="width: 100%;font-size:15px;line-height: 1.5; 
+					font-family:Arial; box-shadow: 0px 0px 0px grey !important;	 
+					border-width: 0px !important;"
 				autoResize="true" readonly="true"
 				value="#{visualizarProblemaBean.versao.enunciado}" />
 		</p:panelGrid>
-
+		<!-- 
 		<p:panelGrid columns="1" style="width: 100%; margin-top: 20px"
 			columnClasses="">
 			
@@ -31,7 +28,7 @@
 					</h:panelGrid>
 				</p:tab>
 			</p:accordionPanel>
-
+			
 			<p:accordionPanel activeIndex="-1" style="width: 100%">
 				<p:tab title="Disciplinas">
 					<h:panelGrid columns="2" cellpadding="10">
@@ -50,6 +47,7 @@
 				</p:tab>
 			</p:accordionPanel>
 
+			
 			<p:accordionPanel activeIndex="-1" style="width: 100%">
 				<p:tab title="Temáticas">
 					<h:panelGrid columns="2" cellpadding="10">
@@ -58,6 +56,7 @@
 					</h:panelGrid>
 				</p:tab>
 			</p:accordionPanel>
-		</p:panelGrid>
+			 
+		</p:panelGrid>-->
 	</h:form>
 </ui:composition>

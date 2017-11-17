@@ -23,6 +23,29 @@ public class UsuarioHasEquipe {
 	@JoinColumn(nullable = false)
 	private Equipe equipe;
 
-	// TODO getters and setters
+	public Usuario getUsuario() {
+		return usuario;
+	}
 	
+	public UsuarioHasEquipe() {
+		
+	}
+
+	public UsuarioHasEquipe(Usuario usuario, Equipe equipe) {
+		this.usuario = usuario;
+		this.equipe = equipe;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
+	}
+
 }

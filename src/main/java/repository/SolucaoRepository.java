@@ -4,27 +4,28 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import model.entity.Problema;
+import model.entity.Solucao;
 
-public class ProblemaRepository implements Serializable {
+public class SolucaoRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager manager;
 
-	public Problema guardar(Problema problema) {
+	public Solucao guardar(Solucao solucao) {
 		EntityTransaction trx = this.manager.getTransaction();
 		trx.begin();
 
 		try {
-			problema = this.manager.merge(problema);
+			solucao = manager.merge(solucao);
 			trx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			solucao = null;
 		}
 
-		return problema;
+		return solucao;
 	}
+
 }

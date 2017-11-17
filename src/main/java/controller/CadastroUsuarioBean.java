@@ -6,10 +6,16 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import automatedjudge.AutomatedJudge;
+import model.entity.Equipe;
 import model.entity.Instituicao;
 import model.entity.Usuario;
+import model.entity.UsuarioHasEquipe;
+import repository.EquipeRepository;
 import repository.InstituicaoRepository;
+import repository.UsuarioHasEquipeRepository;
 import repository.UsuarioRepository;
+import util.cdi.Domjudge;
 import util.jsf.FacesUtil;
 
 @Named
@@ -17,18 +23,28 @@ import util.jsf.FacesUtil;
 public class CadastroUsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private UsuarioRepository usuarioRepository;
 
 	@Inject
+	@Domjudge
+	private AutomatedJudge automatedjudge;
+
+	@Inject
 	private InstituicaoRepository instituicaoRepository;
+
+	@Inject
+	private EquipeRepository equipeRepository;
+	
+	@Inject
+	private UsuarioHasEquipeRepository usuarioHasEquipeRepository;
 
 	private Usuario usuario;
 	private Instituicao instituicao;
 	private Instituicao instituicaoNova;
 	private List<Instituicao> instituicoes;
-	
+
 	public CadastroUsuarioBean() {
 		this.usuario = new Usuario();
 		this.instituicao = new Instituicao();
@@ -42,12 +58,17 @@ public class CadastroUsuarioBean implements Serializable {
 	}
 
 	public void salvar() {
-		if (usuarioRepository.guardar(usuario)) {
-			FacesUtil.addInfoMessage("Usuário cadastrado, faça login.");
-			this.usuario = new Usuario();
-		} else {
-			FacesUtil.addErrorMessage("Ocorreu um erro ao cadastar o usuário.");
-		}
+		usuario = usuarioRepository.guardar(usuario);
+
+		Equipe equipe  = equipeRepository.guardar(new Equipe(usuario.getEmail(), true));
+		
+		usuarioHasEquipeRepository.guardar(new UsuarioHasEquipe(usuario, equipe));
+		
+		automatedjudge.cadastrarEquipe(equipe);
+
+		FacesUtil.addInfoMessage("Usuário cadastrado, faça login.");
+
+		this.usuario = new Usuario();
 	}
 
 	public void salvarInstituicao() {

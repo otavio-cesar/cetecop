@@ -15,35 +15,37 @@ public class UsuarioRepository implements Serializable {
 	@Inject
 	private EntityManager manager;
 
-	public boolean guardar(Usuario usuario) {
-		EntityTransaction trx = this.manager.getTransaction();
+	public Usuario guardar(Usuario usuario) {
+		EntityTransaction trx = manager.getTransaction();
+		
 		trx.begin();
 
 		try {
-			this.manager.persist(usuario);
+			usuario = manager.merge(usuario);
 			trx.commit();
-			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
 		
+		return usuario;
 	}
 
 	public Usuario buscarPorEmail(String email) {
 		Usuario usuario;
 		
-		EntityTransaction trx = this.manager.getTransaction();
+		EntityTransaction trx = manager.getTransaction();
+		
 		trx.begin();
 
 		try {
-			usuario = this.manager.createQuery("from Usuario where lower(email) = :email",	Usuario.class)
-					.setParameter("email", email.toLowerCase()).getSingleResult();
+			usuario = manager.createQuery("from Usuario where lower(email) = :email",	Usuario.class)
+					.setParameter("email", email.toLowerCase())
+					.getSingleResult();
 			trx.commit();
 		} catch (Exception e) {
 			usuario = null;
 		}
 
 		return usuario;
-		
 	}
 }

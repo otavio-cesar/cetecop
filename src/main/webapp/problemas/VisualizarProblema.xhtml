@@ -3,8 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:o="http://omnifaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<f:metadata>
 		<o:viewParam name="versaoPai" value="#{visualizarProblemaBean.versao}" />
@@ -17,15 +16,19 @@
 	<ui:define name="corpo">
 		<div style="margin: 0 auto; width: 95%;">
 			<h1>Visualizar problema</h1>
-			<p:tabView style="margin-top: 10px">
-				<p:tab title="Informações do Problema">
-					<ui:include
-						src="/WEB-INF/template/problemas/InformacaoProblema.xhtml" />
-				</p:tab>
-				<p:tab title="Submeter Solução">
-					<ui:include src="/WEB-INF/template/problemas/SubmeterSolucao.xhtml" />
-				</p:tab>
-			</p:tabView>
+			<h:form id="formSub" prependId="false">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:tabView style="margin-top: 10px" prependId="false">
+					<p:tab title="Informações do Problema">
+						<ui:include
+							src="/WEB-INF/template/problemas/InformacaoProblema.xhtml" />
+					</p:tab>
+					<p:tab title="Submeter Solução">
+						<ui:include
+							src="/WEB-INF/template/problemas/SubmeterSolucao.xhtml" />
+					</p:tab>
+				</p:tabView>
+			</h:form>
 		</div>
 		<br></br>
 		<br></br>

@@ -16,6 +16,15 @@ public class Equipe {
 	
 	@Column(columnDefinition = "varchar(1) default 0")
 	private boolean isEquipeOneUser;
+	
+	public Equipe() {
+		
+	}
+	
+	public Equipe(String nome, boolean isEquipeOneUser) {
+		this.nome = nome;
+		this.isEquipeOneUser = isEquipeOneUser;
+	}
 
 	public Integer getId() {
 		return id;

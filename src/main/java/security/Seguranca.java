@@ -40,6 +40,11 @@ public class Seguranca {
 		return usuario;
 	}
 
+	public boolean isSubmissaoProblemaPermitido() {
+		return getUsuarioLogado() == null ? false : true;
+	}
+	
+
 	public boolean isCadastroProblemaPermitido() {
 		return externalContext.isUserInRole("PROFESSOR");
 	}
