@@ -6,14 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo">CETECOP - Cadastrar Problema</ui:define>
-
 	<ui:define name="corpo">
 		<f:metadata>
 			<f:viewParam name="fixbug"></f:viewParam>
 			<f:event listener="#{pesquisarProblemaBean.inicializar}"
 				type="preRenderView" />
 		</f:metadata>
-
 		<div style="margin: 0 auto; width: 95%;">
 			<h1>Buscar problemas</h1>
 			<p:toolbar id="toolbar">
@@ -25,39 +23,32 @@
 		<div style="margin: 0 auto; width: 95%;">
 			<p:panelGrid columns="4" style="width: 100%; margin-top: 10px;"
 				columnClasses="rotulo, campo, rotulo, campo">
-
 				<p:outputLabel value="Id" for="id" />
 				<p:inputText id="id" value="" size="29" />
-
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" value="" size="29" />
-
 				<p:outputLabel value="Categorias" for="categoria" />
 				<p:selectCheckboxMenu id="categoria" label="Categorias"
 					multiple="false" filter="true" filterMatchMode="startsWith"
 					panelStyle="width:250px" style="width:247px">
 					<f:selectItems />
 				</p:selectCheckboxMenu>
-
 				<p:outputLabel value="Disciplinas" for="disciplina" />
 				<p:selectCheckboxMenu id="disciplina" label="Disciplinas"
 					multiple="false" filter="true" filterMatchMode="startsWith"
 					panelStyle="width:250px" style="width:247px">
 					<f:selectItems />
 				</p:selectCheckboxMenu>
-
 				<p:outputLabel for="idioma" value="Idioma" />
 				<p:selectOneMenu id="idioma" editable="true" style="width: 223px">
 					<f:selectItem itemLabel="Selecione" itemValue="vazio" />
 					<f:selectItems />
 				</p:selectOneMenu>
-
 			</p:panelGrid>
-
 			<p:dataTable id="problemasTable" var="versaoPai"
 				value="#{pesquisarProblemaBean.versoes}" style="margin-top: 10px"
 				emptyMessage="Nenhum pedido encontrado." rows="15" paginator="true"
-				paginatorAlwaysVisible="false" paginatorPosition="bottom" >
+				paginatorAlwaysVisible="false" paginatorPosition="bottom">
 				<p:column headerText="Id" style="text-align: center; width: 10%">
 					<h:outputText value="#{versaoPai.problema.id}" />
 				</p:column>
@@ -74,9 +65,7 @@
 					</p:button>
 				</p:column>
 			</p:dataTable>
-
 		</div>
 		<br></br>
 	</ui:define>
-
 </ui:composition>

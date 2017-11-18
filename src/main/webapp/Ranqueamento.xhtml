@@ -1,0 +1,49 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Página Inicial - Cetecop</ui:define>
+
+	<ui:define name="corpo">
+	<f:metadata>
+			<f:viewParam name="fixbug"></f:viewParam>
+			<f:event listener="#{ranqueamentoBean.inicializar}"
+				type="preRenderView" />
+		</f:metadata>
+		<div style="margin: 0 auto; width: 80%;">
+			<div style="width: 100%; margin-top: 50px; padding-right: 20px;">
+				<div style="float: left; width: 100%;">
+					<h1>Ranqueamento global</h1>
+					<br/>
+					<p:dataTable id="ranqueamentoTable" var="solucao"
+						value="#{ranqueamentoBean.solucoes}" style="margin-top: 10px"
+						emptyMessage="Seja o primeiro a submeter uma solução." rows="15"
+						paginator="true" paginatorAlwaysVisible="false" 
+						paginatorPosition="bottom" sortBy="#{solucao.id}">
+						<p:column headerText="Id solucao" style="text-align: center; width: 10%">
+							<h:outputText value="#{solucao.id}" />
+						</p:column>
+						<p:column headerText="Id problema">
+							<h:outputText value="#{solucao.problema.id}" />
+						</p:column>
+						<p:column headerText="Nome do problema">
+							<h:outputText value="#{solucao.versao.nome}" />
+						</p:column>
+						<p:column headerText="Programador">
+							<h:outputText value="#{solucao.user.nome}" />
+						</p:column>
+						<p:column headerText="Resultado">
+							<h:outputText value="#{solucao.resultado}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+		<br></br>
+		<br></br>
+	</ui:define>
+</ui:composition>

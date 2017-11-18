@@ -23,6 +23,8 @@ import util.jsf.FacesUtil;
 public class VisualizarProblemaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ON_QUEUE = "na fila";
 
 	@Inject
 	@Domjudge
@@ -70,7 +72,7 @@ public class VisualizarProblemaBean implements Serializable {
 		solucao.setNomeArquivo(versao.getNome().replace(" ", "") + "." + solucao.getLinguagem());
 		solucao.setUser(Seguranca.getUsuarioLogado().getUsuario());
 		solucao.setProblema(versao.getProblema());
-
+		solucao.setResultado(ON_QUEUE);
 		solucao = solucaoRepository.guardar(solucao);
 
 		automatedJudge.submeterSolucao(solucao, automatedJudge.buscaEventoComumATodos(),

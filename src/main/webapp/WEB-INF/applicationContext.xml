@@ -33,6 +33,7 @@
 
 		<intercept-url pattern="/CadastroUsuario.xhtml" access="permitAll" />
 		<intercept-url pattern="/Home.xhtml" access="permitAll" />
+		<intercept-url pattern="/Ranqueamento.xhtml" access="permitAll" />
 		<intercept-url pattern="/problemas/PesquisaProblema.xhtml"
 			access="permitAll" />
 		<intercept-url pattern="/problemas/VisualizarProblema.xhtml"

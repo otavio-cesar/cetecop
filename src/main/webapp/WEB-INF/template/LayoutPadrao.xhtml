@@ -43,16 +43,13 @@
 
 		<h:form style="display: inline-block">
 			<p:menubar styleClass="menu-sistema">
-				<p:submenu label="Problemas">
-					<p:menuitem value="Buscar" />
-					<p:menuitem value="Cadastrar" />
-					<p:separator />
-					<p:menuitem value="Categorias" />
-					<p:menuitem value="Produtos" outcome="/Home" />
-				</p:submenu>
-				<p:menuitem value="Sair" url="/j_spring_security_logout" rendered="#{seguranca.usuarioLogado}"/>
-				<p:menuitem value="Login" url="/Login" rendered="#{not seguranca.usuarioLogado}"/>
-				<p:menuitem value="Cadastrar" url="/CadastroUsuario.xhtml" rendered="#{not seguranca.usuarioLogado}"/>
+				<p:menuitem value="Ranqueamento" outcome="/Ranqueamento.xhtml" />
+				<p:menuitem value="Sair" url="/j_spring_security_logout"
+					rendered="#{seguranca.usuarioLogado}" />
+				<p:menuitem value="Login" url="/Login"
+					rendered="#{not seguranca.usuarioLogado}" />
+				<p:menuitem value="Cadastrar" url="/CadastroUsuario.xhtml"
+					rendered="#{not seguranca.usuarioLogado}" />
 			</p:menubar>
 		</h:form>
 	</div>

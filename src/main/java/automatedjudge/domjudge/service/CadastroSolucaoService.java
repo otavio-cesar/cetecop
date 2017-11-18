@@ -4,21 +4,28 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+
+import automatedjudge.domjudge.service.thread.AtualizadaSolucaoThread;
 import model.Evento;
 import model.entity.Equipe;
 import model.entity.Solucao;
+import model.entity.mapper.SolucaoMapper;
 import repository.mapper.EquipeMapperRepository;
 import repository.mapper.ProblemaMapperRepository;
+import repository.mapper.SolucaoMapperRepository;
 
 public class CadastroSolucaoService {
 
 	private EquipeMapperRepository equipeMapperRepository;
 	
 	private ProblemaMapperRepository problemaMapperRepository;
+	
+	private SolucaoMapperRepository solucaoMapperRepository;
 
 	public CadastroSolucaoService() {
 		equipeMapperRepository = new EquipeMapperRepository();
 		problemaMapperRepository = new ProblemaMapperRepository();
+		solucaoMapperRepository = new SolucaoMapperRepository();
 	}
 
 	public void guardar(Solucao solucao, Evento evento, Equipe equipe) {
@@ -34,7 +41,13 @@ public class CadastroSolucaoService {
 		
 		inserirArquivoSolucao(managerDomjudge, solucao, solucaoId);
 		
-		// TODO mapper
+		SolucaoMapper solucaoMapper = new SolucaoMapper(solucao.getId(), solucaoId);
+		solucaoMapper = solucaoMapperRepository.guardar(solucaoMapper);
+		
+		new AtualizadaSolucaoThread(solucaoMapper).start();
+		
+		managerDomjudge.close();
+		
 	}
 
 	private void inserirArquivoSolucao(EntityManager manager, Solucao solucao, Integer solucaoId) {
@@ -62,7 +75,8 @@ public class CadastroSolucaoService {
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
-
+		String submitTime = (new Date().getTime() + "").substring(0, 10) + ".0";
+		
 		manager
 				.createNativeQuery("INSERT INTO submission (cid, teamid, probid, langid, submittime)"
 						+ " VALUES (:cid, :teamid, :probid, :langid, :submittime)")
@@ -70,7 +84,7 @@ public class CadastroSolucaoService {
 				.setParameter("teamid", equipeId)
 				.setParameter("probid", problemaId)
 				.setParameter("langid", solucao.getLinguagem().toString())
-				.setParameter("submittime", new Date().getTime())
+				.setParameter("submittime", submitTime)
 				.executeUpdate();
 
 		solucaoId = (Integer) manager.createNativeQuery("SELECT MAX(submitid) FROM submission")

@@ -47,5 +47,4 @@ public class Problema {
 		this.categorias = categorias;
 	}
 
-
 }

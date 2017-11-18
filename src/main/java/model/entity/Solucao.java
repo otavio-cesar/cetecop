@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import util.Linguagem;
 
@@ -40,20 +41,14 @@ public class Solucao {
 	@Column(nullable = false) 
 	private boolean valida;
 
-	@Column(length = 25)
 	private String resultado;
 
 	@Column(columnDefinition = "TEXT")
 	private String outputCompile;
 
-	public Problema getProblema() {
-		return problema;
-	}
-
-	public void setProblema(Problema problema) {
-		this.problema = problema;
-	}
-
+	@Transient
+	private Versao versao;
+	
 	public Usuario getUser() {
 		return user;
 	}
@@ -118,4 +113,19 @@ public class Solucao {
 		this.linguagem = linguagem;
 	}
 
+	public Problema getProblema() {
+		return problema;
+	}
+
+	public void setProblema(Problema problema) {
+		this.problema = problema;
+	}
+
+	public Versao getVersao() {
+		return versao;
+	}
+
+	public void setVersao(Versao versao) {
+		this.versao = versao;
+	}
 }
