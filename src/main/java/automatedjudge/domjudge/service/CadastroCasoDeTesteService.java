@@ -12,7 +12,7 @@ import model.entity.CasoDeTeste;
 import model.entity.mapper.CasoDeTesteMapper;
 import repository.mapper.CasoDeTesteMapperRepository;
 import repository.mapper.ProblemaMapperRepository;
-
+import util.jpa.EntityManagerProducer;
 public class CadastroCasoDeTesteService {
 
 	private ProblemaMapperRepository problemaMapperRepository;
@@ -25,7 +25,7 @@ public class CadastroCasoDeTesteService {
 		ArrayList<CasoDeTesteMapper> casosDeTesteMapper = new ArrayList<>();
 		Integer problemaIdExternal;
 		
-		EntityManager managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
+		EntityManager managerDomjudge = EntityManagerProducer.getentityManagerDomjudge();
 
 		for (CasoDeTeste casoDeTeste : casosDeTeste) {
 			problemaIdExternal = problemaMapperRepository.buscaProblemaIdExternal(casoDeTeste.getProblema().getId());
@@ -36,7 +36,7 @@ public class CadastroCasoDeTesteService {
 			new Thread(new InsereCasoDeTesteMapper(casoDeTesteMapper)).start();
 		}
 
-		managerDomjudge.close();
+		//managerDomjudge.close();
 	}
 
 	// Insere registro por vez.

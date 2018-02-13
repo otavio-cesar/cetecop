@@ -13,7 +13,7 @@ import model.entity.mapper.SolucaoMapper;
 import repository.mapper.EquipeMapperRepository;
 import repository.mapper.ProblemaMapperRepository;
 import repository.mapper.SolucaoMapperRepository;
-
+import util.jpa.EntityManagerProducer;
 public class CadastroSolucaoService {
 
 	private EquipeMapperRepository equipeMapperRepository;
@@ -35,7 +35,7 @@ public class CadastroSolucaoService {
 		
 		Integer equipeId = equipeMapperRepository.buscaEquipeIdExternal(equipe.getId());
 		
-		EntityManager managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
+		EntityManager managerDomjudge = EntityManagerProducer.getentityManagerDomjudge();
 
 		solucaoId = inserirEquipe(managerDomjudge, solucao, evento, equipeId, problemaId);
 		
@@ -46,7 +46,7 @@ public class CadastroSolucaoService {
 		
 		new AtualizadaSolucaoThread(solucaoMapper).start();
 		
-		managerDomjudge.close();
+		//managerDomjudge.close();
 		
 	}
 

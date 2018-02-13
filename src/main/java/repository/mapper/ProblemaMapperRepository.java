@@ -5,11 +5,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import model.entity.mapper.ProblemaMapper;
-
+import util.jpa.EntityManagerProducer;
 public class ProblemaMapperRepository {
 
 	public void guardar(ProblemaMapper problemaMapper) {
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
@@ -21,13 +21,13 @@ public class ProblemaMapperRepository {
 			e.printStackTrace();
 		}
 		
-		manager.close();
+		//manager.close();
 	}
 
 	public Integer buscaProblemaIdExternal(Integer problemaIdCetecop) {
 		Integer problemaIdExternal;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		EntityTransaction trx = manager.getTransaction();
 			
 		trx.begin();
@@ -37,7 +37,7 @@ public class ProblemaMapperRepository {
 				.getSingleResult();
 		trx.commit();
 		
-		manager.close();
+		//manager.close();
 		
 		return problemaIdExternal;
 	}

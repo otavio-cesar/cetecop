@@ -8,13 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import model.entity.Solucao;
-
+import util.jpa.EntityManagerProducer;
 public class SolucaoRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private EntityManager manager;
+	private EntityManager manager = EntityManagerProducer.getentityManagerCetecop();;
 
 	public Solucao guardar(Solucao solucao) {
 		EntityTransaction trx = manager.getTransaction();
@@ -53,18 +52,18 @@ public class SolucaoRepository implements Serializable {
 	public Solucao buscarPorId(Integer id) {
 		Solucao solucao;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 
 		solucao = manager.find(Solucao.class, id);
 
-		manager.close();
+		//manager.close();
 
 		return solucao;
 	}
 
 	// Do not depend this method on automatic injection
 	public void atualizaSolucao(Solucao solucao) {
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 
 		EntityTransaction trx = manager.getTransaction();
 
@@ -77,6 +76,6 @@ public class SolucaoRepository implements Serializable {
 			e.printStackTrace();
 		}
 
-		manager.close();
+		//manager.close();
 	}
 }

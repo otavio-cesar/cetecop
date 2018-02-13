@@ -5,16 +5,16 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import model.entity.Problema;
 import model.entity.Versao;
-
+import util.jpa.EntityManagerProducer;
 public class VersaoRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private EntityManager manager;
+	private EntityManager manager = EntityManagerProducer.getentityManagerCetecop();;
 
 	public Versao guardar(Versao versao) {
 		EntityTransaction trx = this.manager.getTransaction();

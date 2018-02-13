@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import model.entity.Equipe;
 import model.entity.Usuario;
 import model.entity.UsuarioHasEquipe;
+import util.jpa.EntityManagerProducer;
 
 public class EquipeRepository implements Serializable {
 
@@ -18,7 +19,7 @@ public class EquipeRepository implements Serializable {
 	public Equipe guardar(Equipe equipe) {
 		Equipe retorno;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 
 		EntityTransaction trx = manager.getTransaction();
 
@@ -31,7 +32,7 @@ public class EquipeRepository implements Serializable {
 			retorno = null;
 		}
 
-		manager.close();
+		//manager.close();
 
 		return retorno;
 	}
@@ -39,11 +40,11 @@ public class EquipeRepository implements Serializable {
 	public Equipe buscarPorId(Integer id) {
 		Equipe equipe;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 
 		equipe = manager.find(Equipe.class, id);
 
-		manager.close();
+		//manager.close();
 
 		return equipe;
 	}
@@ -52,7 +53,7 @@ public class EquipeRepository implements Serializable {
 		Equipe equipe = null;
 		List<UsuarioHasEquipe> usuariosHasEquipe;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 
 		usuariosHasEquipe = manager
 				.createQuery("from UsuarioHasEquipe where usuario_id = :usuarioId", UsuarioHasEquipe.class)
@@ -65,7 +66,7 @@ public class EquipeRepository implements Serializable {
 			}
 		}
 		
-		manager.close();
+		//manager.close();
 
 		return equipe;
 	}

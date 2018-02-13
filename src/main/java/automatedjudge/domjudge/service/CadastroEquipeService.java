@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 import model.entity.Equipe;
 import model.entity.mapper.EquipeMapper;
 import repository.mapper.EquipeMapperRepository;
-
+import util.jpa.EntityManagerProducer;
 public class CadastroEquipeService {
 	
 	private static final int CATEGORYID_PARTICIPANTS = 3;
@@ -20,14 +20,14 @@ public class CadastroEquipeService {
 	public void guardar(Equipe equipe) {
 		Integer equipeId;
 		
-		EntityManager managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
+		EntityManager managerDomjudge = EntityManagerProducer.getentityManagerDomjudge();
 		
 		equipeId = inserirEquipe(managerDomjudge, equipe);
 
 		EquipeMapper problemaMapper = new EquipeMapper(equipe.getId(), equipeId);
 		equipeMapperRepository.guardar(problemaMapper);
 
-		managerDomjudge.close();
+		//managerDomjudge.close();
 	}
 
 	// Insere um registro por vez.

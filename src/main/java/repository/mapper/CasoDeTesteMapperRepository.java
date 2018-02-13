@@ -5,11 +5,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import model.entity.mapper.CasoDeTesteMapper;
-
+import util.jpa.EntityManagerProducer;
 public class CasoDeTesteMapperRepository{
 
 	public void guardar(CasoDeTesteMapper casoDeTesteMapper) {
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		EntityTransaction trx = manager.getTransaction();
 		
 		trx.begin();
@@ -21,6 +21,6 @@ public class CasoDeTesteMapperRepository{
 			e.printStackTrace();
 		}
 		
-		manager.close();
+		//manager.close();
 	}
 }

@@ -5,15 +5,15 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 import model.entity.Usuario;
-
+import util.jpa.EntityManagerProducer;
 public class UsuarioRepository implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	private EntityManager manager;
+	private EntityManager manager = EntityManagerProducer.getentityManagerCetecop();;
 
 	public Usuario guardar(Usuario usuario) {
 		EntityTransaction trx = manager.getTransaction();

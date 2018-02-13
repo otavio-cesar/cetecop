@@ -4,11 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import model.entity.mapper.SolucaoMapper;
-
+import util.jpa.EntityManagerProducer;
 public class SolucaoMapperRepository {
 
 	public SolucaoMapper guardar(SolucaoMapper solucaoMapper) {
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
@@ -20,7 +20,7 @@ public class SolucaoMapperRepository {
 			e.printStackTrace();
 		}
 
-		manager.close();
+		//manager.close();
 		
 		return solucaoMapper;
 	}
@@ -29,7 +29,7 @@ public class SolucaoMapperRepository {
 	public String buscaResultadoSolucao(SolucaoMapper solucaoMapper) {
 		String resultado;
 		
-		EntityManager manager = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerDomjudge();
 		
 		EntityTransaction trx = manager.getTransaction();
 		
@@ -41,14 +41,14 @@ public class SolucaoMapperRepository {
 		
 		trx.commit();
 		
-		manager.close();
+		//manager.close();
 		
 		return resultado;
 	}
 
 	// Do not depend this method on automatic injection
 	public void excluirMapper(SolucaoMapper solucaoMapper) {
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		
 		EntityTransaction trx = manager.getTransaction();
 
@@ -58,14 +58,14 @@ public class SolucaoMapperRepository {
 		 
 		trx.commit();
 
-		manager.close();
+		//manager.close();
 	}
 
 	// TODO
 	public Integer buscaProblemaIdExternal(Integer problemaIdCetecop) {
 		Integer problemaIdExternal;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		EntityTransaction trx = manager.getTransaction();
 
 		trx.begin();
@@ -75,7 +75,7 @@ public class SolucaoMapperRepository {
 				.setParameter("problemaIdSource", problemaIdCetecop).getSingleResult();
 		trx.commit();
 
-		manager.close();
+		//manager.close();
 
 		return problemaIdExternal;
 	}

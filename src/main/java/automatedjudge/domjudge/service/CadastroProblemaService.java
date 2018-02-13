@@ -7,7 +7,7 @@ import model.Evento;
 import model.entity.Versao;
 import model.entity.mapper.ProblemaMapper;
 import repository.mapper.ProblemaMapperRepository;
-
+import util.jpa.EntityManagerProducer;
 public class CadastroProblemaService {
 
 	private static final int limiteMaximoExecucao = 9999;
@@ -21,14 +21,14 @@ public class CadastroProblemaService {
 	public void guardar(Versao versao, Evento evento) {
 		Integer problemaId;
 		
-		EntityManager managerDomjudge = Persistence.createEntityManagerFactory("domjudge").createEntityManager();
+		EntityManager managerDomjudge = EntityManagerProducer.getentityManagerDomjudge();
 		
 		problemaId = inserirProblema(managerDomjudge, versao, evento);
 
 		ProblemaMapper problemaMapper = new ProblemaMapper(versao.getProblema().getId(), problemaId);
 		problemaMapperRepository.guardar(problemaMapper);
 
-		managerDomjudge.close();
+		//managerDomjudge.close();
 	}
 
 	// Insere um registro por vez.

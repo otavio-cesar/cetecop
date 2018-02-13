@@ -4,11 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import model.entity.mapper.EquipeMapper;
-
+import util.jpa.EntityManagerProducer;
 public class EquipeMapperRepository {
 
 	public void guardar(EquipeMapper equipeMapper) {
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		
 		EntityTransaction trx = manager.getTransaction();
 
@@ -21,13 +21,13 @@ public class EquipeMapperRepository {
 			e.printStackTrace();
 		}
 
-		manager.close();
+		//manager.close();
 	}
 
 	public Integer buscaEquipeIdExternal(Integer equipeIdSource) {
 		Integer problemaIdExternal;
 
-		EntityManager manager = Persistence.createEntityManagerFactory("cetecop").createEntityManager();
+		EntityManager manager = EntityManagerProducer.getentityManagerCetecop();
 		
 		EntityTransaction trx = manager.getTransaction();
 
@@ -40,7 +40,7 @@ public class EquipeMapperRepository {
 		
 		trx.commit();
 
-		manager.close();
+		//manager.close();
 
 		return problemaIdExternal;
 	}
